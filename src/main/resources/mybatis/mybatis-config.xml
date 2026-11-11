@@ -62,10 +62,10 @@
                 <!-- <property name="url" value="jdbc:mysql://127.0.0.1:3306/springBootTest"/> -->
                 <property name="url" value="${spring.datasource.url}"/>
                 <!-- 访问数据库的用户名 -->
-                <!-- <property name="username" value="root"/> -->
+                <!-- <property name="username" value="YOUR_DATABASE_USER"/> -->
                 <property name="username" value="${spring.datasource.username}"/>
                 <!-- 访问数据库的密码 -->
-                <!-- <property name="password" value="lyc123456"/> -->
+                <!-- <property name="password" value="YOUR_DATABASE_PASSWORD"/> -->
                 <property name="password" value="${spring.datasource.password}"/>
             </dataSource>
         </environment>

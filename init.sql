@@ -1,156 +1,226 @@
-USE springBootTest;
+SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-CREATE TABLE `About` (
-                         `id` int(11) NOT NULL AUTO_INCREMENT,
-                         `imageUrl` varchar(255) NOT NULL,
-                         `description` varchar(255) DEFAULT NULL,
-                         `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                         `updateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                         `isDeleted` tinyint(1) DEFAULT '0',
-                         PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS Products (
+ id INTEGER AUTO_INCREMENT PRIMARY KEY,
+ name VARCHAR(200) NOT NULL,
+ coverImage VARCHAR(1000), detailImages VARCHAR(10000), description VARCHAR(4000),
+ salePrice DOUBLE DEFAULT 0, costPrice DOUBLE DEFAULT 0, stockQuantity INTEGER DEFAULT 0,
+ brand VARCHAR(100), categoryId INTEGER DEFAULT 0,
+ isAvailable SMALLINT DEFAULT 1, isDeleted SMALLINT DEFAULT 0,
+ createTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS site_content (
+ id VARCHAR(100) PRIMARY KEY, kind VARCHAR(30) NOT NULL, product_id INTEGER UNIQUE,
+ payload LONGTEXT NOT NULL, version BIGINT NOT NULL DEFAULT 1,
+ updated_at TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6),
+ FOREIGN KEY(product_id) REFERENCES Products(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS site_admin (
+ username VARCHAR(64) PRIMARY KEY, password_hash VARCHAR(100) NOT NULL,
+ created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS site_inquiry (
+ id VARCHAR(100) PRIMARY KEY, name VARCHAR(100) NOT NULL, phone VARCHAR(30) NOT NULL,
+ company VARCHAR(200) NOT NULL, intent VARCHAR(200) NOT NULL, message VARCHAR(4000) NOT NULL,
+ status VARCHAR(20) NOT NULL DEFAULT 'pending', consent BOOLEAN NOT NULL,
+ created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS site_metadata (name VARCHAR(100) PRIMARY KEY, content_value VARCHAR(2000) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS site_page (
+ id VARCHAR(100) PRIMARY KEY, payload LONGTEXT NOT NULL, version BIGINT NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS site_catalog_meta (
+ kind VARCHAR(40) NOT NULL, record_id INTEGER NOT NULL, payload LONGTEXT NOT NULL, version BIGINT NOT NULL DEFAULT 1,
+ PRIMARY KEY(kind,record_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS ProductCategories (
+ id INTEGER AUTO_INCREMENT PRIMARY KEY, name VARCHAR(200) NOT NULL, description VARCHAR(4000), isEnabled SMALLINT DEFAULT 1,
+ isDeleted SMALLINT DEFAULT 0, createTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS Brands (
+ id INTEGER AUTO_INCREMENT PRIMARY KEY, name VARCHAR(200) NOT NULL, description VARCHAR(4000), logo VARCHAR(1000), isDeleted SMALLINT DEFAULT 0,
+ createTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS BrandAuthorizationCertificates (
+ id INTEGER AUTO_INCREMENT PRIMARY KEY, name VARCHAR(200) NOT NULL, description VARCHAR(4000), imageUrl VARCHAR(1000), isDeleted SMALLINT DEFAULT 0,
+ createTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS Carousels (
+ id INTEGER AUTO_INCREMENT PRIMARY KEY, title VARCHAR(200), sort_order INTEGER DEFAULT 0, imageUrl VARCHAR(1000), redirectUrl VARCHAR(1000),
+ isEnabled SMALLINT DEFAULT 1, isDeleted SMALLINT DEFAULT 0, createTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS ProductsCarousels (
+ id INTEGER AUTO_INCREMENT PRIMARY KEY, products VARCHAR(10000) NOT NULL, isDeleted SMALLINT DEFAULT 0,
+ createTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS About (
+ id INTEGER AUTO_INCREMENT PRIMARY KEY, description VARCHAR(4000), imageUrl VARCHAR(1000), isDeleted SMALLINT DEFAULT 0,
+ createTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS Businesses (
+ id INTEGER AUTO_INCREMENT PRIMARY KEY, name VARCHAR(200) NOT NULL, description VARCHAR(4000), contactInfo VARCHAR(500), isDeleted SMALLINT DEFAULT 0,
+ createTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS BasicInformation (
+ id BIGINT AUTO_INCREMENT PRIMARY KEY, homeTitle VARCHAR(200), homeDescription VARCHAR(4000), phone VARCHAR(100), email VARCHAR(200), address VARCHAR(500),
+ weChatImage VARCHAR(1000), icp VARCHAR(200), beianImage VARCHAR(1000), publicSecurity VARCHAR(200), copyright VARCHAR(200),
+ isEnable SMALLINT DEFAULT 1, isDeleted SMALLINT DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS Admins (
+ id INTEGER AUTO_INCREMENT PRIMARY KEY, userName VARCHAR(64) UNIQUE NOT NULL, password VARCHAR(100) NOT NULL,
+ permissions VARCHAR(200), remarks VARCHAR(1000), isEnable SMALLINT DEFAULT 1, isDeleted SMALLINT DEFAULT 0,
+ createTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS `User` (
+ id INTEGER AUTO_INCREMENT PRIMARY KEY, userName VARCHAR(100) UNIQUE NOT NULL, password VARCHAR(100) NOT NULL, wechat_openid VARCHAR(200),
+ isEnable SMALLINT DEFAULT 1, isDeleted SMALLINT DEFAULT 0, created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS Orders (
+ id INTEGER AUTO_INCREMENT PRIMARY KEY, userId INTEGER NOT NULL, totalPrice DECIMAL(14,2) NOT NULL, status VARCHAR(100) NOT NULL,
+ createTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS user_location (
+ id BIGINT AUTO_INCREMENT PRIMARY KEY, user_id BIGINT NOT NULL, latitude DOUBLE, longitude DOUBLE, address VARCHAR(500),
+ created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS site_media (
+ id VARCHAR(100) PRIMARY KEY, name VARCHAR(200) NOT NULL, content_type VARCHAR(100) NOT NULL, bytes LONGBLOB NOT NULL,
+ created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE `Admins` (
-                          `id` int(11) NOT NULL AUTO_INCREMENT,
-                          `userName` varchar(255) NOT NULL,
-                          `password` varchar(255) NOT NULL,
-                          `permissions` varchar(255) DEFAULT NULL,
-                          `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                          `updateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                          `remarks` text,
-                          `isDeleted` tinyint(1) DEFAULT '0',
-                          `isEnable` tinyint(1) DEFAULT '1',
-                          PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+START TRANSACTION;
 
-CREATE TABLE `BasicInformation` (
-                                    `id` bigint NOT NULL AUTO_INCREMENT,
-                                    `phone` varchar(255) NOT NULL,
-                                    `email` varchar(255) NOT NULL,
-                                    `address` varchar(255) NOT NULL,
-                                    `weChatImage` varchar(255) DEFAULT NULL,
-                                    `icp` varchar(255) DEFAULT NULL,
-                                    `beianImage` varchar(255) DEFAULT NULL,
-                                    `publicSecurity` varchar(255) DEFAULT NULL,
-                                    `copyright` varchar(255) DEFAULT NULL,
-                                    `isDeleted` tinyint(1) DEFAULT '0',
-                                    `isEnable` tinyint(1) DEFAULT '1',
-                                    `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                                    `updateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                                    `homeTitle` varchar(255) DEFAULT NULL,
-                                    `homeDescription` text,
-                                    PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+SET @xgsz_initialize =
+ NOT EXISTS (SELECT 1 FROM `Products`) AND
+ NOT EXISTS (SELECT 1 FROM `site_content`) AND
+ NOT EXISTS (SELECT 1 FROM `site_admin`) AND
+ NOT EXISTS (SELECT 1 FROM `site_inquiry`) AND
+ NOT EXISTS (SELECT 1 FROM `site_metadata`) AND
+ NOT EXISTS (SELECT 1 FROM `site_page`) AND
+ NOT EXISTS (SELECT 1 FROM `site_catalog_meta`) AND
+ NOT EXISTS (SELECT 1 FROM `ProductCategories`) AND
+ NOT EXISTS (SELECT 1 FROM `Brands`) AND
+ NOT EXISTS (SELECT 1 FROM `BrandAuthorizationCertificates`) AND
+ NOT EXISTS (SELECT 1 FROM `Carousels`) AND
+ NOT EXISTS (SELECT 1 FROM `ProductsCarousels`) AND
+ NOT EXISTS (SELECT 1 FROM `About`) AND
+ NOT EXISTS (SELECT 1 FROM `Businesses`) AND
+ NOT EXISTS (SELECT 1 FROM `BasicInformation`) AND
+ NOT EXISTS (SELECT 1 FROM `Admins`) AND
+ NOT EXISTS (SELECT 1 FROM `User`) AND
+ NOT EXISTS (SELECT 1 FROM `Orders`) AND
+ NOT EXISTS (SELECT 1 FROM `user_location`) AND
+ NOT EXISTS (SELECT 1 FROM `site_media`);
 
-CREATE TABLE `BrandAuthorizationCertificates` (
-                                                  `id` int(11) NOT NULL AUTO_INCREMENT,
-                                                  `name` varchar(255) NOT NULL COMMENT '证书名称',
-                                                  `description` text COMMENT '证书描述',
-                                                  `imageUrl` varchar(255) DEFAULT NULL COMMENT '证书图片URL地址',
-                                                  `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-                                                  `updateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-                                                  `isDeleted` tinyint(1) DEFAULT '0' COMMENT '是否删除',
-                                                  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+INSERT INTO `ProductCategories` (`id`, `name`, `description`, `isEnabled`)
+ SELECT 1, '通用服务器', '', 1 WHERE @xgsz_initialize;
 
-CREATE TABLE `Brands` (
-                          `id` int(11) NOT NULL AUTO_INCREMENT,
-                          `name` varchar(255) NOT NULL,
-                          `description` text,
-                          `logo` varchar(255) DEFAULT NULL,
-                          `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                          `updateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                          `isDeleted` tinyint(1) DEFAULT '0',
-                          PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+INSERT INTO `site_catalog_meta` (`kind`, `record_id`, `payload`, `version`)
+ SELECT 'categories', 1, CONVERT(X'7b226b6579223a2267656e6572616c227d' USING utf8mb4), 1 WHERE @xgsz_initialize;
 
-CREATE TABLE `Businesses` (
-                              `id` int(11) NOT NULL AUTO_INCREMENT,
-                              `name` varchar(255) NOT NULL,
-                              `description` text NOT NULL,
-                              `contactInfo` varchar(255) NOT NULL,
-                              `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                              `updateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                              `isDeleted` tinyint(1) DEFAULT '0',
-                              PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+INSERT INTO `ProductCategories` (`id`, `name`, `description`, `isEnabled`)
+ SELECT 2, 'GPU 服务器', '', 1 WHERE @xgsz_initialize;
 
-CREATE TABLE `Carousels` (
-                             `id` int(11) NOT NULL AUTO_INCREMENT,
-                             `title` varchar(255) DEFAULT NULL,
-                             `sort_order` int(11) DEFAULT '0',
-                             `imageUrl` varchar(255) NOT NULL,
-                             `redirectUrl` varchar(255) DEFAULT NULL,
-                             `isEnabled` tinyint(1) DEFAULT '1',
-                             `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                             `updateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                             `isDeleted` tinyint(1) DEFAULT '0',
-                             PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+INSERT INTO `site_catalog_meta` (`kind`, `record_id`, `payload`, `version`)
+ SELECT 'categories', 2, CONVERT(X'7b226b6579223a22677075227d' USING utf8mb4), 1 WHERE @xgsz_initialize;
 
-CREATE TABLE `User` (
-                        `id` int(100) NOT NULL AUTO_INCREMENT,
-                        `userName` varchar(100) DEFAULT NULL,
-                        `password` varchar(100) DEFAULT NULL,
-                        `created` datetime DEFAULT CURRENT_TIMESTAMP,
-                        `isEnable` tinyint(1) DEFAULT '1',
-                        `wechat_openid` varchar(255) DEFAULT NULL,
-                        `isDeleted` tinyint(1) DEFAULT '0',
-                        PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=485 DEFAULT CHARSET=utf8;
+INSERT INTO `ProductCategories` (`id`, `name`, `description`, `isEnabled`)
+ SELECT 3, '国产算力', '', 1 WHERE @xgsz_initialize;
 
-CREATE TABLE `Orders` (
-                          `id` int(11) NOT NULL AUTO_INCREMENT,
-                          `userId` int(100) DEFAULT NULL,
-                          `totalPrice` decimal(10,2) NOT NULL,
-                          `status` varchar(50) DEFAULT NULL,
-                          `createTime` datetime DEFAULT CURRENT_TIMESTAMP,
-                          `updateTime` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                          PRIMARY KEY (`id`),
-                          KEY `userId` (`userId`),
-                          CONSTRAINT `Orders_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `User` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+INSERT INTO `site_catalog_meta` (`kind`, `record_id`, `payload`, `version`)
+ SELECT 'categories', 3, CONVERT(X'7b226b6579223a22646f6d6573746963227d' USING utf8mb4), 1 WHERE @xgsz_initialize;
 
-CREATE TABLE `ProductCategories` (
-                                     `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品分类ID',
-                                     `name` varchar(255) NOT NULL COMMENT '商品分类名称',
-                                     `description` text COMMENT '商品分类描述',
-                                     `isEnabled` tinyint(1) DEFAULT '1' COMMENT '启用禁用状态',
-                                     `isDeleted` tinyint(1) DEFAULT '0' COMMENT '是否删除',
-                                     `updateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                                     `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                                     PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='商品分类表';
+INSERT INTO `Businesses` (`id`, `name`, `description`, `contactInfo`)
+ SELECT 1, '渠道合作', '面向拥有客户资源与行业触达能力的伙伴，共同推进服务器及算力方案。', '客户需求对接 / 方案协同' WHERE @xgsz_initialize;
 
-CREATE TABLE `Products` (
-                            `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品ID',
-                            `name` varchar(255) NOT NULL COMMENT '商品名称',
-                            `coverImage` varchar(255) DEFAULT NULL COMMENT '商品封面图片',
-                            `detailImages` json DEFAULT NULL COMMENT '商品详情图片',
-                            `description` text COMMENT '商品描述',
-                            `salePrice` decimal(10,2) NOT NULL COMMENT '销售价格',
-                            `costPrice` decimal(10,2) NOT NULL COMMENT '成本价格',
-                            `stockQuantity` int(11) NOT NULL COMMENT '库存数量',
-                            `brand` varchar(255) DEFAULT NULL COMMENT '商品品牌',
-                            `categoryId` int(11) DEFAULT NULL COMMENT '商品分类ID',
-                            `isAvailable` tinyint(1) DEFAULT '1' COMMENT '上下架状态',
-                            `isDeleted` tinyint(1) DEFAULT '0' COMMENT '是否删除',
-                            `updateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                            `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                            PRIMARY KEY (`id`),
-                            KEY `categoryId` (`categoryId`),
-                            CONSTRAINT `Products_ibfk_1` FOREIGN KEY (`categoryId`) REFERENCES `ProductCategories` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='商品信息表';
+INSERT INTO `site_catalog_meta` (`kind`, `record_id`, `payload`, `version`)
+ SELECT 'businesses', 1, CONVERT(X'7b7d' USING utf8mb4), 1 WHERE @xgsz_initialize;
 
-CREATE TABLE `user_location` (
-                                 `id` int(11) NOT NULL AUTO_INCREMENT,
-                                 `user_id` int(100) NOT NULL,
-                                 `latitude` decimal(9,6) DEFAULT NULL,
-                                 `longitude` decimal(9,6) DEFAULT NULL,
-                                 `address` varchar(255) DEFAULT NULL,
-                                 `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                                 `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                                 PRIMARY KEY (`id`),
-                                 KEY `user_id` (`user_id`),
-                                 CONSTRAINT `user_location_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+INSERT INTO `Businesses` (`id`, `name`, `description`, `contactInfo`)
+ SELECT 2, '技术生态合作', '面向硬件、模型与软件生态伙伴，探索整机适配、推理优化与联合方案。', '技术适配 / 联合方案' WHERE @xgsz_initialize;
+
+INSERT INTO `site_catalog_meta` (`kind`, `record_id`, `payload`, `version`)
+ SELECT 'businesses', 2, CONVERT(X'7b7d' USING utf8mb4), 1 WHERE @xgsz_initialize;
+
+INSERT INTO `Businesses` (`id`, `name`, `description`, `contactInfo`)
+ SELECT 3, '服务交付合作', '面向具备实施与运维能力的伙伴，围绕项目需求开展交付协同。', '实施交付 / 运维支持' WHERE @xgsz_initialize;
+
+INSERT INTO `site_catalog_meta` (`kind`, `record_id`, `payload`, `version`)
+ SELECT 'businesses', 3, CONVERT(X'7b7d' USING utf8mb4), 1 WHERE @xgsz_initialize;
+
+INSERT INTO `Products` (`id`, `name`, `description`, `categoryId`, `coverImage`, `detailImages`, `brand`, `isAvailable`)
+ SELECT 1, '通用服务器整机', '面向企业核心业务，为计算、存储与虚拟化提供可靠的硬件基础。', 1, '', '[]', '', 1 WHERE @xgsz_initialize;
+
+INSERT INTO `site_content` (`id`, `kind`, `product_id`, `payload`, `version`)
+ SELECT 'general', 'products', 1, CONVERT(X'7b2263617465676f7279223a2267656e6572616c222c226e616d65223a22e9809ae794a8e69c8de58aa1e599a8e695b4e69cba222c22656e223a2247454e4552414c20505552504f534520534552564552222c22746167223a22e7a8b3e5ae9ae689bfe8bdbd20c2b720e781b5e6b4bbe9858de7bdae222c2269636f6e223a22736572766572222c2264657363223a22e99da2e59091e4bc81e4b89ae6a0b8e5bf83e4b89ae58aa1efbc8ce4b8bae8aea1e7ae97e38081e5ad98e582a8e4b88ee8999ae68b9fe58c96e68f90e4be9be58fafe99da0e79a84e7a1ace4bbb6e59fbae7a180e38082222c226665617475726573223a5b22e8aea1e7ae97e4b88ee5ad98e582a8e8b584e6ba90e68c89e99c80e9858de7bdae222c22e694afe68c81e4b89ae58aa1e7b3bbe7bb9fe4b88ee8999ae68b9fe58c96e983a8e7bdb2222c22e695b4e69cbae98089e59e8be38081e99b86e68890e4b88ee4baa4e4bb98225d2c2275736573223a22e4bc81e4b89ae4b89ae58aa1e7b3bbe7bb9f202f20e695b0e68daee5ad98e582a8202f20e8999ae68b9fe58c96222c226b696e64223a227261636b222c227075626c6973686564223a747275657d' USING utf8mb4), 1 WHERE @xgsz_initialize;
+
+INSERT INTO `Products` (`id`, `name`, `description`, `categoryId`, `coverImage`, `detailImages`, `brand`, `isAvailable`)
+ SELECT 2, 'GPU 服务器整机', '围绕模型训练与推理场景，协同规划 GPU、网络与存储资源。', 2, '', '[]', '', 1 WHERE @xgsz_initialize;
+
+INSERT INTO `site_content` (`id`, `kind`, `product_id`, `payload`, `version`)
+ SELECT 'gpu', 'products', 2, CONVERT(X'7b2263617465676f7279223a22677075222c226e616d65223a2247505520e69c8de58aa1e599a8e695b4e69cba222c22656e223a2247505520434f4d505554494e4720534552564552222c22746167223a22e58aa0e9809fe8aea1e7ae9720c2b720e99da2e59091204149222c2269636f6e223a2263686970222c2264657363223a22e59bb4e7bb95e6a8a1e59e8be8aeade7bb83e4b88ee68ea8e79086e59cbae699afefbc8ce58d8fe5908ce8a784e5889220475055e38081e7bd91e7bb9ce4b88ee5ad98e582a8e8b584e6ba90e38082222c226665617475726573223a5b22e68c89e6a8a1e59e8be4b88ee8b49fe8bdbde8a784e588922047505520e9858de7bdae222c22e8aea1e7ae97e38081e7bd91e7bb9ce4b88ee5ad98e582a8e58d8fe5908ce98089e59e8b222c22e983a8e7bdb2e9aa8ce8af81e4b88ee8bf90e8a18ce78eafe5a283e98082e9858d225d2c2275736573223a22e6a8a1e59e8be8aeade7bb83202f20414920e68ea8e79086202f20e7a791e5ada6e8aea1e7ae97222c226b696e64223a22677075222c227075626c6973686564223a747275657d' USING utf8mb4), 1 WHERE @xgsz_initialize;
+
+INSERT INTO `Products` (`id`, `name`, `description`, `categoryId`, `coverImage`, `detailImages`, `brand`, `isAvailable`)
+ SELECT 3, '国产卡服务器整机', '从国产加速卡整机选型到软件栈适配，构建契合业务的国产算力方案。', 3, '', '[]', '', 1 WHERE @xgsz_initialize;
+
+INSERT INTO `site_content` (`id`, `kind`, `product_id`, `payload`, `version`)
+ SELECT 'domestic', 'products', 3, CONVERT(X'7b2263617465676f7279223a22646f6d6573746963222c226e616d65223a22e59bbde4baa7e58da1e69c8de58aa1e599a8e695b4e69cba222c22656e223a22444f4d455354494320414920434f4d505554494e47222c22746167223a22e59bbde4baa7e7ae97e58a9b20c2b720e7949fe68081e98082e9858d222c2269636f6e223a226c6179657273222c2264657363223a22e4bb8ee59bbde4baa7e58aa0e9809fe58da1e695b4e69cbae98089e59e8be588b0e8bdafe4bbb6e6a088e98082e9858defbc8ce69e84e5bbbae5a591e59088e4b89ae58aa1e79a84e59bbde4baa7e7ae97e58a9be696b9e6a188e38082222c226665617475726573223a5b22e59bbde4baa7e58aa0e9809fe58da1e4b88ee695b4e69cbae696b9e6a188e98089e59e8b222c22e9a9b1e58aa8e38081e6a186e69eb6e4b88ee6a8a1e59e8be585bce5aeb9e680a7e9aa8ce8af81222c22e68c89e5ba94e794a8e59cbae699afe8bf9be8a18ce983a8e7bdb2e8af84e4bcb0225d2c2275736573223a22e59bbde4baa7e58c96e5bbbae8aebe202f20e7a781e69c89e58c96e983a8e7bdb2202f20e8a18ce4b89ae5ba94e794a8222c226b696e64223a22646f6d6573746963222c227075626c6973686564223a747275657d' USING utf8mb4), 1 WHERE @xgsz_initialize;
+
+INSERT INTO `site_content` (`id`, `kind`, `product_id`, `payload`, `version`)
+ SELECT 'inference', 'services', NULL, CONVERT(X'7b2269636f6e223a226163746976697479222c226e616d65223a22e6a8a1e59e8be68ea8e79086e4bc98e58c96222c22656e223a22494e464552454e4345204f5054494d495a4154494f4e222c2264657363223a22e8aea9e6a8a1e59e8be4bb8ee2809ce883bde8bf90e8a18ce2809de8b5b0e59091e2809ce69bb4e5a5bde794a8e2809de38082e7bb93e59088e4b89ae58aa1e79baee6a087efbc8ce8af84e4bcb0e5bbb6e8bf9fe38081e5909ee59090e4b88ee8b584e6ba90e4bdbfe794a8e38082222c226974656d73223a5b22e6a8a1e59e8be983a8e7bdb2e4b88ee8bf90e8a18ce78eafe5a283e98082e9858d222c22e68ea8e79086e680a7e883bde8af84e4bcb0e4b88ee793b6e9a288e58886e69e90222c22e9878fe58c96e38081e689b9e5a484e79086e58f8ae5b9b6e58f91e7ad96e795a5e8af84e4bcb0222c22e4bc98e58c96e5898de5908ee59fbae58786e6b58be8af95e4b88ee4baa4e4bb98e5bbbae8aeae225d2c226e6f7465223a22e4bc98e58c96e69588e69e9ce4be9de6a8a1e59e8be38081e7a1ace4bbb6e38081e7b2bee5baa6e8a681e6b182e5928ce5b7a5e4bd9ce8b49fe8bdbde5ae9ee6b58be7a1aee8aea4e38082222c227075626c6973686564223a747275657d' USING utf8mb4), 1 WHERE @xgsz_initialize;
+
+INSERT INTO `site_content` (`id`, `kind`, `product_id`, `payload`, `version`)
+ SELECT 'gpu-care', 'services', NULL, CONVERT(X'7b2269636f6e223a22736869656c64222c226e616d65223a2247505520e4b893e9a1b9e7bbb4e4bf9d222c22656e223a22475055205350454349414c4953542043415245222c2264657363223a22e585b3e6b3a82047505520e581a5e5bab7e78ab6e68081e4b88ee69585e99a9ce9a38ee999a9efbc8ce8aea9e585b3e994aee7ae97e58a9be8aebee5a487e4bf9de68c81e889afe5a5bde8bf90e8a18ce78ab6e68081e38082222c226974656d73223a5b2247505520e581a5e5bab7e6a380e69fa5e4b88ee6b8a9e5baa6e79b91e68ea7e58886e69e90222c2245434320e7bb9fe8aea1e38081e588a9e794a8e78e87e4b88ee697a5e5bf97e58886e69e90222c2247505520e69585e99a9ce8af8ae696ade58f8ae7bbb4e4bfaee696b9e6a188e8af84e4bcb0222c22e5a487e69cbae5a487e4bbb6e4b88ee4b893e9a1b9e7bbb4e68aa4e696b9e6a188225d2c226e6f7465223a22e7bbb4e4bfaee88c83e59bb4e38081e5a487e4bbb6e4b88ee5938de5ba94e5ae89e68e92e6a0b9e68daee8aebee5a487e6a380e6b58be7bb93e69e9ce58f8ae59088e5908ce7baa6e5ae9ae38082222c227075626c6973686564223a747275657d' USING utf8mb4), 1 WHERE @xgsz_initialize;
+
+INSERT INTO `site_content` (`id`, `kind`, `product_id`, `payload`, `version`)
+ SELECT 'cluster', 'services', NULL, CONVERT(X'7b2269636f6e223a226e6574776f726b222c226e616d65223a22e7ae97e58a9be99b86e7bea4e8bf90e7bbb4222c22656e223a22434c5553544552204f5045524154494f4e53222c2264657363223a22e8a686e79b96e99b86e7bea4e79a84e983a8e7bdb2e38081e58d87e7baa7e38081e8bf81e7a7bbe5928ce689a9e5aeb9efbc8ce585b3e6b3a8e7ae97e58a9be7b3bbe7bb9fe79a84e68c81e7bbade58fafe794a8e38082222c226974656d73223a5b22e7ae97e58a9be99b86e7bea4e983a8e7bdb2e38081e58d87e7baa7e4b88ee689a9e5aeb9222c22e99b86e7bea4e8bf81e7a7bbe4b88ee8bf90e8a18ce78eafe5a283e7bbb4e68aa4222c22e9a9b1e58aa8e38081e5beaee7a081e4b88ee8a1a5e4b881e7aea1e79086222c22414920e5b9b3e58fb0e79b91e68ea7e58f8ae8b584e6ba90e8b083e4bc98225d2c226e6f7465223a22534c4120e7baa7e588abe4b88ee69c8de58aa1e8beb9e7958ce7bb8fe9a1b9e79baee8af84e4bcb0e5908ee7baa6e5ae9ae38082222c227075626c6973686564223a747275657d' USING utf8mb4), 1 WHERE @xgsz_initialize;
+
+INSERT INTO `site_content` (`id`, `kind`, `product_id`, `payload`, `version`)
+ SELECT 'maintenance', 'services', NULL, CONVERT(X'7b2269636f6e223a22746f6f6c222c226e616d65223a22e59fbae7a180e7bbb4e4bf9de69c8de58aa1222c22656e223a22494e46524153545255435455524520535550504f5254222c2264657363223a22e4bb8ee7a1ace4bbb6e588b0e8bdafe4bbb6efbc8ce4bb8ee697a5e5b8b8e7bbb4e68aa4e588b0e58d87e7baa7e8bf81e7a7bbefbc8ce4b8ba20495420e59fbae7a180e8aebee696bde68f90e4be9be68c81e7bbade694afe68c81e38082222c226974656d73223a5b22e8bdafe7a1ace4bbb6e694afe68c81e4b88ee7bbb4e68aa4222c22e8aebee5a487e58d87e7baa7e689a9e5aeb9e38081e690ace8bf81e4b88ee7a79fe8b581e8af84e4bcb0222c22e695b0e68daee8bf81e7a7bbe4b88ee4babae59198e694afe68c81222c22e68a80e69cafe59fb9e8aeade58f8ae68a80e69cafe592a8e8afa2225d2c226e6f7465223a22e69c8de58aa1e58685e5aeb9e58fafe68c89e8aebee5a487e68385e586b5e4b88ee4b89ae58aa1e99c80e6b182e7bb84e59088e38082222c227075626c6973686564223a747275657d' USING utf8mb4), 1 WHERE @xgsz_initialize;
+
+INSERT INTO `site_content` (`id`, `kind`, `payload`, `version`)
+ SELECT 'site-settings', 'settings', CONVERT(X'7b2270686f6e65223a223138343538303535323936222c22656d61696c223a22222c2261646472657373223a22222c227765636f6d4e616d65223a22222c227765636f6d55726c223a22222c227765636f6d5172223a22227d' USING utf8mb4), 1 WHERE @xgsz_initialize;
+
+INSERT INTO `BasicInformation` (`id`, `phone`, `email`, `address`, `weChatImage`, `icp`, `publicSecurity`, `copyright`, `isEnable`)
+ SELECT 1, '18458055296', '', '', '', '', '', '', 1 WHERE @xgsz_initialize;
+
+INSERT INTO `site_catalog_meta` (`kind`, `record_id`, `payload`, `version`)
+ SELECT 'basicInformation', 1, CONVERT(X'7b7d' USING utf8mb4), 1 WHERE @xgsz_initialize;
+
+INSERT INTO `site_page` (`id`, `payload`, `version`)
+ SELECT 'global', CONVERT(X'7b226e616d65223a22e88aafe58589e699bae695b0222c22656e676c6973684e616d65223a2258494e4755414e47204449474954414c222c226c6f676f223a222f6173736574732f7867737a2d6c6f676f2e6a7067222c22666f6f746572536c6f67616e223a22e4bba5e88aafe4b8bae59fbaefbc8ce4bba5e58589e4b8bae5bc95e380825c6ee8aea9e7ae97e58a9be68890e4b8bae4b89ae58aa1e7949fe995bfe79a84e58a9be9878fe38082222c22666f6f7465724e6f7465223a22e69c8de58aa1e599a8e695b4e69cba20c2b720e69cace59cb0e58c96e983a8e7bdb220c2b720e68ea8e79086e4bc98e58c9620c2b720e99b86e7bea4e4baa4e4bb98e8bf90e7bbb4e7bbb4e4bf9d222c22666f6f746572446973636c61696d6572223a22e4baa7e59381e9858de7bdaee4b88ee69c8de58aa1e696b9e6a188e4bba5e5ae9ee99985e6b29fe9809ae4b8bae58786222c226374615469746c65223a22e4b88be4b880e7a88be7ae97e58a9be5a29ee995bfefbc8ce4b88ee88aafe58589e5908ce8a18c222c2263746144657363223a22e4bb8ee4b880e58fb0e69c8de58aa1e599a8efbc8ce588b0e4b880e5a597e98082e59088e682a8e79a84e7ae97e58a9be696b9e6a188e38082222c22637461427574746f6e223a22e8818ae8818ae682a8e79a84e99c80e6b182222c2270726f64756374446973636c61696d6572223a22e695b4e69cbae5a496e8a782e4b8bae6a682e5bfb5e7a4bae6848fefbc8ce585b7e4bd93e59381e7898ce38081e59e8be58fb7e4b88ee9858de7bdaee68c89e9a1b9e79baee99c80e6b182e7a1aee8aea4e38082222c2264657461696c446973636c61696d6572223a22e585b7e4bd93e59381e7898ce38081e59e8be58fb7e38081e9858de7bdaee4b88ee4baa4e4bb98e696b9e5bc8fe99c80e7bb8fe696b9e6a188e8af84e4bcb0efbc8ce59bbee78987e4b8bae6a682e5bfb5e7a4bae6848fe38082222c226272616e64735469746c65223a22e59088e4bd9ce59381e7898c222c226365727469666963617465735469746c65223a22e59381e7898ce68e88e69d83e4b88ee8b584e8b4a8222c227265636f6d6d656e645469746c65223a22e68ea8e88d90e4baa7e59381222c2270726f64756374734e6176223a22e4baa7e59381e4b8ade5bf83222c2273657276696365734e6176223a22e68a80e69cafe69c8de58aa1222c22706172746e6572734e6176223a22e68b9be59586e59088e4bd9c222c2261626f75744e6176223a22e585b3e4ba8ee68891e4bbac222c22636f6e746163744e6176223a22e88194e7b3bbe68891e4bbac227d' USING utf8mb4), 1 WHERE @xgsz_initialize;
+
+INSERT INTO `site_page` (`id`, `payload`, `version`)
+ SELECT 'home', CONVERT(X'7b226865726f45796562726f77223a22e4bba5e88aafe8819ae58a9b20c2b720e59091e58589e8808ce8a18c222c226865726f5469746c65223a22e8aea9e6af8fe4b880e4bbbde7ae97e58a9b5c6ee9878ae694bee69bb4e5a4a7e4bbb7e580bc222c226865726f44657363223a22e4bb8ee69c8de58aa1e599a8e695b4e69cbae588b0e6a8a1e59e8be68ea8e79086e4bc98e58c965c6ee88aafe58589e699bae695b0efbc8ce4b8bae682a8e79a84e4b89ae58aa1e69e84e5bbbae58fafe99da0e79a84e7ae97e58a9be5ba95e5baa7e38082222c226865726f496d616765223a222f6173736574732f6461746163656e7465722d6865726f2e77656270222c226865726f427574746f6e223a22e68ea2e7b4a2e4baa7e59381e4b88ee696b9e6a188222c226865726f436f6e73756c74223a22e4b88ee68a80e69cafe59ba2e9989fe8818ae8818a222c226865726f4e6f7465223a22e69c8de58aa1e599a8e695b4e69cba202f20e69cace59cb0e58c96e983a8e7bdb2202f20e68ea8e79086e4bc98e58c96202f20e99b86e7bea4e4baa4e4bb98e8bf90e7bbb4e7bbb4e4bf9d222c2270726f64756374735469746c65223a22e4bb8ee695b4e69cbae588b0e4baa4e4bb98efbc8ce689bee588b0e59088e98082e79a84e7ae97e58a9be696b9e6a188222c2270726f647563747344657363223a22e69c8de58aa1e599a8e695b4e69cbae38081e69cace59cb0e58c96e983a8e7bdb2e38081e68ea8e79086e4bc98e58c96e4b88ee99b86e7bea4e4bf9de99a9cefbc8ce5ae8ce695b4e4b89ae58aa1e696b9e59091e4b880e7ab99e4ba86e8a7a3e38082222c22736572766963657356697375616c5469746c65223a22e7a1ace4bbb6e69c89e8beb9e7958c5c6ee69c8de58aa1e697a0e997b4e696ad222c22736572766963657356697375616c44657363223a22e8bf9ee68ea5e8aebee5a487e38081e6a8a1e59e8be4b88ee4b89ae58aa1e79a84e6af8fe4b880e78eafe38082222c2273657276696365735469746c65223a22e8aea9e7ae97e58a9be890bde59cb0efbc8ce8aea9e4bbb7e580bce68c81e7bbad222c22736572766963657344657363223a22e8a686e79b96e983a8e7bdb2e38081e4bc98e58c96e4b88ee8bf90e7bbb4e79a84e585a8e6b581e7a88be69c8de58aa1e38082222c22696e64757374726965735469746c65223a22e7ae97e58a9be59091e5ae9eefbc8ce8b58be883bde6af8fe4b880e7a78de58fafe883bd222c22696e647573747269657344657363223a22e4bba5e59cbae699afe4b8bae8b5b7e782b9efbc8ce8aea9e68a80e69cafe89e8de585a5e79c9fe5ae9ee79a84e4b89ae58aa1e38082222c226361706162696c6974696573223a5b7b227469746c65223a22e69c8de58aa1e599a8e695b4e69cba222c2264657363223a22e99da2e59091e8aea1e7ae97e38081e5ad98e582a8e4b88e20414920e4bbbbe58aa1222c2269636f6e223a22736572766572222c226c696e6b223a22232f70726f64756374733f736f6c7574696f6e3d73657276657273227d2c7b227469746c65223a22e69cace59cb0e58c96e983a8e7bdb2222c2264657363223a22e8aea9e6a8a1e59e8be4b88ee5ba94e794a8e59ca8e69cace59cb0e8bf90e8a18c222c2269636f6e223a226c6179657273222c226c696e6b223a22232f70726f64756374733f736f6c7574696f6e3d6465706c6f796d656e74227d2c7b227469746c65223a22e68ea8e79086e4bc98e58c96222c2264657363223a22e4bc98e58c96e5b9b3e58fb0e38081e4baa7e587bae4b88ee99b86e7bea4e680a7e883bd222c2269636f6e223a226163746976697479222c226c696e6b223a22232f70726f64756374733f736f6c7574696f6e3d696e666572656e6365227d2c7b227469746c65223a22e99b86e7bea4e4baa4e4bb98e8bf90e7bbb4e7bbb4e4bf9d222c2264657363223a22e8a686e79b96e99b86e7bea4e3808147505520e4b88ee6b6b2e586b7e4bf9de99a9c222c2269636f6e223a22736869656c64222c226c696e6b223a22232f70726f64756374733f736f6c7574696f6e3d636c7573746572227d5d2c22696e6475737472696573223a5b7b226e616d65223a22e4babae5b7a5e699bae883bd222c227469746c65223a22e4bb8ee6a8a1e59e8be68ea2e7b4a2efbc8ce588b0e5ba94e794a8e890bde59cb0222c2264657363223a22e59bb4e7bb95e6a8a1e59e8be8aeade7bb83e38081e68ea8e79086e4b88ee7a781e69c89e58c96e983a8e7bdb2efbc8ce8a784e58892e7ae97e58a9be7a1ace4bbb6e38081e8bf90e8a18ce78eafe5a283e4b88ee5908ee7bbade4bc98e58c96e8b7afe5be84e38082222c2274616773223a22e6a8a1e59e8be983a8e7bdb2202f20e68ea8e79086e4bc98e58c96202f2047505520e99b86e7bea4222c2269636f6e223a2263686970227d2c7b226e616d65223a22e4bc81e4b89ae695b0e5ad97e58c96222c227469746c65223a22e8aea9e6a0b8e5bf83e4b89ae58aa1efbc8ce7a8b3e6ada5e59091e5898d222c2264657363223a22e59bb4e7bb95e4bc81e4b89ae4b89ae58aa1e7b3bbe7bb9fe38081e8999ae68b9fe58c96e4b88ee5ad98e582a8e99c80e6b182efbc8ce7bb84e59088e9809ae794a8e69c8de58aa1e599a8e38081e59fbae7a180e7bbb4e4bf9de4b88ee689a9e5aeb9e69c8de58aa1e38082222c2274616773223a22e4b89ae58aa1e7b3bbe7bb9f202f20e8999ae68b9fe58c96202f20e58d87e7baa7e689a9e5aeb9222c2269636f6e223a226275696c64696e67227d2c7b226e616d65223a22e7a791e7a094e4b88ee69599e882b2222c227469746c65223a22e4b8bae68ea2e7b4a2e68f90e4be9be7ae97e58a9be59fbae7a180222c2264657363223a22e7bb93e59088e5ae9ee9aa8ce5aea4e38081e7a791e7a094e59ba2e9989fe4b88ee69599e5ada6e4bbbbe58aa1efbc8ce8af84e4bcb0e8aea1e7ae97e8b584e6ba90e9858de7bdaee38081e78eafe5a283e983a8e7bdb2e4b88ee68a80e69cafe694afe68c81e99c80e6b182e38082222c2274616773223a22e7a791e7a094e8aea1e7ae97202f20e5ae9ee9aa8ce78eafe5a283202f20e68a80e69cafe59fb9e8aead222c2269636f6e223a226c6179657273227d2c7b226e616d65223a22e59bbde4baa7e58c96e5bbbae8aebe222c227469746c65223a22e68a8ae59bbde4baa7e7ae97e58a9befbc8ce68ea5e585a5e79c9fe5ae9ee4b89ae58aa1222c2264657363223a22e59bb4e7bb95e59bbde4baa7e58da1e69c8de58aa1e599a8e695b4e69cbaefbc8ce5bc80e5b195e7a1ace4bbb6e98089e59e8be38081e8bdafe4bbb6e7949fe68081e98082e9858de4b88ee5ba94e794a8e585bce5aeb9e680a7e9aa8ce8af81e38082222c2274616773223a22e59bbde4baa7e695b4e69cba202f20e7949fe68081e98082e9858d202f20e585bce5aeb9e9aa8ce8af81222c2269636f6e223a22736869656c64227d5d7d' USING utf8mb4), 1 WHERE @xgsz_initialize;
+
+INSERT INTO `site_page` (`id`, `payload`, `version`)
+ SELECT 'products', CONVERT(X'7b226865726f5469746c65223a22e4b8bae4b89ae58aa1e689bee588b0e59088e98082e79a84e7ae97e58a9b222c226865726f44657363223a22e4bb8ee69c8de58aa1e599a8e695b4e69cbae588b0e69cace59cb0e58c96e983a8e7bdb2e38081e68ea8e79086e4bc98e58c96e4b88ee99b86e7bea4e4bf9de99a9cefbc8ce68c89e4b89ae58aa1e99c80e6b182e7bb84e59088e4baa7e59381e4b88ee69c8de58aa1e38082222c2264656c69766572795469746c65223a22e4b88de58faae98089e7a1ace4bbb6efbc8ce69bb4e585b3e6b3a8e5a682e4bd95e890bde59cb0222c22646973636c61696d6572223a22e5b195e7a4bae79a84e59e8be58fb7e4b88ee59381e7898ce794a8e4ba8ee696b9e6a188e6b29fe9809aefbc8ce585b7e4bd93e9858de7bdaee38081e4be9be8b4a7e4b88ee98082e9858de88c83e59bb4e4bba5e5ae9ee99985e8af84e4bcb0e4b8bae58786e38082222c227374657073223a5b7b227469746c65223a22e99c80e6b182e6b29fe9809a222c2264657363223a22e6988ee7a1aee6a8a1e59e8be38081e4b89ae58aa1e8b49fe8bdbde38081e9a284e7ae97e4b88ee983a8e7bdb2e78eafe5a283e38082227d2c7b227469746c65223a22e696b9e6a188e98089e59e8b222c2264657363223a22e58d8fe5908ce8a784e58892e8aea1e7ae97e38081e5ad98e582a8e38081e7bd91e7bb9ce4b88ee8bdafe4bbb6e78eafe5a283e38082227d2c7b227469746c65223a22e99b86e68890e4baa4e4bb98222c2264657363223a22e68c89e7baa6e5ae9ae8bf9be8a18ce99b86e68890e38081e6b58be8af95e4b88ee78eafe5a283e983a8e7bdb2e38082227d2c7b227469746c65223a22e68c81e7bbade694afe68c81222c2264657363223a22e68c89e99c80e8a194e68ea5e68ea8e79086e4bc98e58c96e38081e689a9e5aeb9e4b88ee7bbb4e4bf9de69c8de58aa1e38082227d5d2c22736f6c7574696f6e735469746c65223a22e4baa7e59381e4b88ee8a7a3e586b3e696b9e6a188222c22736f6c7574696f6e7344657363223a22e59b9be4b8aae4b89ae58aa1e696b9e59091efbc8ce4bb8ee8aebee5a487e98089e59e8be588b0e983a8e7bdb2e4bc98e58c96e4b88ee68c81e7bbade4bf9de99a9ce38082222c2274616f62616f55726c223a2268747470733a2f2f7777772e74616f62616f2e636f6d2f222c22646f7579696e55726c223a2268747470733a2f2f7777772e646f7579696e2e636f6d2f222c22736f6c7574696f6e47726f757073223a5b7b226b6579223a2273657276657273222c227469746c65223a22e69c8de58aa1e599a8e695b4e69cba222c2264657363223a22e68c89e8aea1e7ae97e38081e5ad98e582a8e4b88e20414920e4bbbbe58aa1e98089e68ba9e98082e59088e79a84e695b4e69cbae696b9e6a188e38082222c2269636f6e223a22736572766572222c2267726f757073223a5b7b227469746c65223a22e9809ae794a8e69c8de58aa1e599a8222c226974656d73223a22e5ad98e582a8e59e8be69c8de58aa1e599a85c6ee9809ae7ae97e59e8be69c8de58aa1e599a8227d2c7b227469746c65223a2247505520e69c8de58aa1e599a8222c226974656d73223a22353039305c6e343039305c6e353038305c6e35303630203136475c6e563130305c6e50524f2036303030445c6e50524f20353030305c6e50524f2036303030227d2c7b227469746c65223a22e59bbde4baa7e7ae97e58a9b222c226974656d73223a22e4b8ade6988ae88aafe88bb15c6ee69886e4bb91e88aaf5c6ee69ba6e69c9b5c6ee6b290e69ba6227d5d7d2c7b226b6579223a226465706c6f796d656e74222c227469746c65223a22e69cace59cb0e58c96e983a8e7bdb2222c2264657363223a22e59bb4e7bb95e8aebee5a487e4baa4e4bb98e38081546f6b656e20e8be93e587bae4b88e204167656e7420e5ba94e794a8e8a784e58892e69cace59cb0e983a8e7bdb2e38082222c2269636f6e223a226c6179657273222c2267726f757073223a5b7b227469746c65223a22e983a8e7bdb2e4b88ee5ba94e794a8222c226974656d73223a22e8a3b8e98791e5b19ee4baa4e4bb985c6ee695b4e4bd9320546f6b656e20e8be93e587bae696b9e6a1885c6ee4b893e4b89a204167656e7420e5b7a5e585b7227d5d7d2c7b226b6579223a22696e666572656e6365222c227469746c65223a22e68ea8e79086e4bc98e58c96222c2264657363223a22e59bb4e7bb9520546f6b656e20e5b9b3e58fb0e38081e68ea8e79086e4baa7e587bae5928ce99b86e7bea4e680a7e883bde5bc80e5b195e4bc98e58c96e38082222c2269636f6e223a226163746976697479222c2267726f757073223a5b7b227469746c65223a22e5b9b3e58fb0e4b88ee680a7e883bd222c226974656d73223a22546f6b656e20e5b9b3e58fb0e4bc98e58c965c6ee68ea8e79086e4baa7e587bae4bc98e58c965c6ee99b86e7bea4e680a7e883bde4bc98e58c96227d5d7d2c7b226b6579223a22636c7573746572222c227469746c65223a22e99b86e7bea4e4baa4e4bb98e8bf90e7bbb4e7bbb4e4bf9d222c2264657363223a22e8a686e79b96e99b86e7bea4e4baa4e4bb98e38081e68c81e7bbade8bf90e7bbb4e3808147505520e4b88ee6b6b2e586b7e7bbb4e4bf9de38082222c2269636f6e223a22736869656c64222c2267726f757073223a5b7b227469746c65223a22e4baa4e4bb98e4b88ee4bf9de99a9c222c226974656d73223a22e99b86e7bea4e4baa4e4bb985c6ee99b86e7bea4e8bf90e7bbb45c6ee99b86e7bea42047505520e7bbb4e4bf9d5c6ee6b6b2e586b7e7bbb4e4bf9d227d5d7d5d7d' USING utf8mb4), 1 WHERE @xgsz_initialize;
+
+INSERT INTO `site_page` (`id`, `payload`, `version`)
+ SELECT 'services', CONVERT(X'7b226865726f5469746c65223a22e4bb8ee983a8e7bdb2e588b0e8bf90e7bbb4efbc8ce585a8e7a88be4b8bae7ae97e58a9be68aa4e888aa222c226865726f44657363223a22e59bb4e7bb95e8aebee5a487e38081e5b9b3e58fb0e4b88ee6a8a1e59e8befbc8ce7bb84e59088e98082e59088e4b89ae58aa1e998b6e6aeb5e79a84e68a80e69cafe69c8de58aa1e38082222c226173737572616e63655469746c65223a22e58588e8af84e4bcb0efbc8ce5868de689bfe8afba222c226173737572616e636544657363223a22e6a0b9e68daee8aebee5a487e78eb0e78ab6e38081e4b89ae58aa1e8b49fe8bdbde4b88ee69c8de58aa1e88c83e59bb4e588b6e5ae9ae696b9e6a188e380825c6ee5938de5ba94e697b6e997b4e38081e58fafe794a8e680a7e79baee6a087e38081e5a487e69cbae5a487e4bbb6e4b88ee9a9bbe59cbae5ae89e68e92efbc8ce4bba5e9a1b9e79baee8af84e4bcb0e5928ce58f8ce696b9e59088e5908ce4b8bae58786e38082227d' USING utf8mb4), 1 WHERE @xgsz_initialize;
+
+INSERT INTO `site_page` (`id`, `payload`, `version`)
+ SELECT 'partners', CONVERT(X'7b226865726f5469746c65223a22e4b88ee88aafe58589e5908ce8a18cefbc8ce585b1e68b93e7ae97e58a9be696b0e69cbae98187222c226865726f44657363223a22e8bf9ee68ea5e4baa7e59381e38081e68a80e69cafe4b88ee5b882e59cbaefbc8ce8aea9e59084e887aae79a84e4bc98e58abfe68890e4b8bae585b1e5908ce79a84e69cbae4bc9ae38082222c2273656374696f6e5469746c65223a22e5a49ae4b880e7a78de8bf9ee68ea5efbc8ce5a49ae4b880e4bbbde58fafe883bd222c2273656374696f6e44657363223a22e99da2e59091e4b88de5908ce7b1bbe59e8be79a84e59088e4bd9ce4bc99e4bcb4efbc8ce585b1e5908ce68ea2e7b4a2e98082e59088e79a84e59088e4bd9ce696b9e5bc8fe38082222c22696e766974655469746c65223a22e59088e4bd9cefbc8ce4bb8ee4b880e6aca1e4baa4e6b581e5bc80e5a78b222c22696e7669746544657363223a22e5918ae8af89e68891e4bbace682a8e79a84e4bc98e58abfe9a286e59f9fe5928ce59088e4bd9ce696b9e59091efbc8c5c6ee4b880e8b5b7e5afbbe689bee4b89ae58aa1e79a84e4b88be4b880e4b8aae5a29ee995bfe782b9e38082222c22696e76697465427574746f6e223a22e794b3e8afb7e68890e4b8bae59088e4bd9ce4bc99e4bcb4222c22646973636c61696d6572223a22e59088e4bd9ce88c83e59bb4e38081e694afe68c81e694bfe7ad96e4b88ee59586e58aa1e69da1e4bbb6e4bba5e58f8ce696b9e6b29fe9809ae7a1aee8aea4e4b8bae58786e38082227d' USING utf8mb4), 1 WHERE @xgsz_initialize;
+
+INSERT INTO `site_page` (`id`, `payload`, `version`)
+ SELECT 'about', CONVERT(X'7b226865726f5469746c65223a22e4bba5e88aafe4b8bae59fbaefbc8ce8aea9e695b0e699bae7949fe995bf222c226865726f44657363223a22e4bb8ee69c8de58aa1e599a8e695b4e69cbae588b0e6a8a1e59e8be68ea8e79086e4bc98e58c96efbc8ce4bb8ee59fbae7a180e8aebee696bde7bbb4e4bf9de588b0e7ae97e58a9be99b86e7bea4e8bf90e7bbb4e38082222c22696e74726f5469746c65223a22e8bf9ee68ea5e7ae97e58a9be5bbbae8aebe5c6ee4b88ee68c81e7bbade8bf90e8a18c222c22696e74726f4c656164223a22e88aafe58589e699bae695b0e8819ae784a6e4bc81e4b89a20495420e59fbae7a180e8aebee696bde4b88ee699bae883bde7ae97e58a9be69c8de58aa1efbc8ce5b086e7a1ace4bbb6e4baa4e4bb98e38081e8bdafe4bbb6e98082e9858de38081e6a8a1e59e8be4bc98e58c96e4b88ee8bf90e8a18ce7bbb4e68aa4e8bf9ee68ea5e8b5b7e69da5efbc8ce4b8bae5aea2e688b7e68f90e4be9be4bb8ee5bbbae8aebee588b0e4bdbfe794a8e79a84e68a80e69cafe694afe68c81e38082222c22696e74726f426f6479223a22e68891e4bbace79a84e4b89ae58aa1e8a686e79b96e69c8de58aa1e599a8e695b4e69cbae38081e59bbde4baa7e58da1e69c8de58aa1e599a8e695b4e69cbae38081e6a8a1e59e8be68ea8e79086e4bc98e58c96efbc8ce4bba5e58f8ae59fbae7a180e7bbb4e4bf9de3808147505520e4b893e9a1b9e7bbb4e4bf9de4b88ee7bbb4e4bfaee38081e7ae97e58a9be99b86e7bea4e8bf90e7bbb4e38082e59bb4e7bb95e9809ae794a8e69c8de58aa1e599a8e38081e7ae97e58a9be69c8de58aa1e599a8e38081e7bd91e7bb9ce8aebee5a487e4b88ee5ad98e582a8e8aebee5a487efbc8ce7bb93e59088e4b89ae58aa1e59cbae699afe8a784e58892e9858de7bdaee38081e983a8e7bdb2e4b88ee5908ee7bbade69c8de58aa1e380825c6ee4bb8ee8aebee5a487e58d87e7baa7e689a9e5aeb9e38081e690ace8bf81e4b88ee695b0e68daee8bf81e7a7bbefbc8ce588b02047505520e581a5e5bab7e6a380e69fa5e38081e69585e99a9ce8af8ae696ade5928ce99b86e7bea4e7bbb4e68aa4efbc8ce68891e4bbace585b3e6b3a8e6af8fe4b880e4b8aae585b7e4bd93e997aee9a298e79a84e8a7a3e586b3efbc8ce8aea9e7ae97e58a9be5bbbae8aebee4b88ee4b89ae58aa1e8bf90e8a18ce8a194e68ea5e8b5b7e69da5e38082222c22696e74726f496d616765223a222f6173736574732f6461746163656e7465722d6865726f2e77656270222c2276697375616c5469746c65223a22e7ae97e58a9be5bbbae8aebee69c89e8a784e588925c6ee4b89ae58aa1e8bf90e8a18ce69c89e694afe68c81222c2276697375616c4e6f7465223a22e695b4e69cbae4baa4e4bb98202f20e6a8a1e59e8be4bc98e58c96202f20e68c81e7bbade8bf90e7bbb4222c227072696e6369706c65735469746c65223a22e4bba5e4b893e4b89ae69c8de58aa1efbc8ce59b9ee5ba94e5ae9ee99985e99c80e6b182222c227072696e6369706c657344657363223a22e4bb8ee4b89ae58aa1e79baee6a087e587bae58f91efbc8ce8aea9e68a80e69cafe696b9e6a188e38081e4baa4e4bb98e8bf87e7a88be4b88ee5908ee7bbade694afe68c81e5bdbce6ada4e8a194e68ea5e38082222c22627573696e6573735469746c65223a22e68891e4bbace79a84e4b89ae58aa1222c22627573696e65737344657363223a22e585bce9a1bee7ae97e58a9be5bbbae8aebee4b88ee697a5e5b8b8e8bf90e8a18cefbc8ce8aea9e4baa7e59381e4baa4e4bb98e5928ce68a80e69cafe69c8de58aa1e5bda2e68890e5ae8ce695b4e8a194e68ea5e38082222c22737570706f72745469746c65223a22e4b88de4bb85e4baa4e4bb98e8aebee5a4875c6ee4b99fe585b3e6b3a8e6af8fe4b880e5a4a9e79a84e8bf90e8a18c222c22737570706f727444657363223a22e68a8ae68a80e69cafe694afe68c81e38081e69c8de58aa1e6b581e7a88be38081e69585e99a9ce5a484e79086e4b88ee8b584e6ba90e4bf9de99a9cefbc8ce890bde5ae9ee588b0e585b7e4bd93e9a1b9e79baee79a84e69c8de58aa1e696b9e6a188e4b8ade38082222c22696e6475737472795469746c65223a22e99da2e59091e5a49ae8a18ce4b89ae79a84e68a80e69cafe99c80e6b182222c22696e64757374727944657363223a22e7bb93e59088e4b88de5908ce59cbae699afe5afb9e8aea1e7ae97e680a7e883bde38081e8bf90e8a18ce7a8b3e5ae9ae680a7e38081e695b0e68daee5ae89e585a8e4b88ee689a9e5b195e883bde58a9be79a84e8a681e6b182efbc8ce6b29fe9809ae98082e9858de79a84e4baa7e59381e4b88ee69c8de58aa1e696b9e6a188e38082222c22696e6475737472794e616d6573223a22e4ba92e88194e7bd915c6ee8bf90e890a5e595865c6ee588b6e980a0e4b89a5c6ee98791e89e8d5c6ee694bfe5ba9c5c6ee69599e882b25c6ee585ace5ae895c6ee794b5e58a9b222c227072696e6369706c6573223a5b7b227469746c65223a22e4b893e4b89ae58aa1e5ae9e222c2264657363223a22e59bb4e7bb95e5ae9ee99985e8aebee5a487e4b88ee5ba94e794a8e78eafe5a283e58886e69e90e997aee9a298efbc8ce8aea9e98089e59e8be38081e9858de7bdaee4b88ee7bbb4e68aa4e5bbbae8aeaee69c89e6988ee7a1aee4be9de68daee38082227d2c7b227469746c65223a22e58d8fe5908ce4baa4e4bb98222c2264657363223a22e8bf9ee68ea5e7a1ace4bbb6e38081e8bdafe4bbb6e4b88ee5ba94e794a8e78eafe88a82efbc8ce6988ee7a1aee4baa4e4bb98e79baee6a087e38081e5ae9ee696bde88c83e59bb4e4b88ee9aa8ce8af81e696b9e5bc8fe38082227d2c7b227469746c65223a22e68c81e7bbade694afe68c81222c2264657363223a22e585b3e6b3a8e983a8e7bdb2e4b98be5908ee79a84e8bf90e8a18ce78ab6e586b5efbc8ce9809ae8bf87e7bbb4e68aa4e38081e4bc98e58c96e4b88ee58d87e7baa7e694afe68c81e4b89ae58aa1e68c81e7bbade58f91e5b195e38082227d5d2c22627573696e6573734172656173223a5b7b2269636f6e223a22736572766572222c227469746c65223a22e69c8de58aa1e599a8e695b4e69cbae4b88ee59bbde4baa7e7ae97e58a9b222c2264657363223a22e59bb4e7bb95e4b89ae58aa1e7b3bbe7bb9fe38081414920e5ba94e794a8e4b88ee59bbde4baa7e58c96e5bbbae8aebeefbc8ce68f90e4be9be9809ae794a8e69c8de58aa1e599a8e3808147505520e69c8de58aa1e599a8e5928ce59bbde4baa7e58da1e69c8de58aa1e599a8e695b4e69cbae79a84e98089e59e8be38081e99b86e68890e4b88ee983a8e7bdb2e694afe68c81e38082222c226c696e6b223a22232f70726f6475637473222c22627574746f6e223a22e4ba86e8a7a3e695b4e69cbae4baa7e59381227d2c7b2269636f6e223a226163746976697479222c227469746c65223a22e6a8a1e59e8be68ea8e79086e4bc98e58c96222c2264657363223a22e4bb8ee6a8a1e59e8be983a8e7bdb2e38081e8bf90e8a18ce78eafe5a283e98082e9858de588b0e68ea8e79086e680a7e883bde4b88ee8b584e6ba90e588a9e794a8e78e87e58886e69e90efbc8ce7bb93e59088e5ae9ee99985e5b7a5e4bd9ce8b49fe8bdbde8af84e4bcb0e4bc98e58c96e8b7afe5be84efbc8ce68ea8e58aa8e6a8a1e59e8be5ba94e794a8e890bde59cb0e38082222c226c696e6b223a22232f73657276696365733f736572766963653d696e666572656e6365222c22627574746f6e223a22e4ba86e8a7a3e68ea8e79086e4bc98e58c96227d2c7b2269636f6e223a226e6574776f726b222c227469746c65223a22e7b3bbe7bb9fe99b86e68890e4b88ee99b86e7bea4e8bf90e7bbb4222c2264657363223a22e58d8fe5908ce8a784e58892e8aea1e7ae97e38081e7bd91e7bb9ce4b88ee5ad98e582a8e8b584e6ba90efbc8ce68f90e4be9be99b86e7bea4e983a8e7bdb2e38081e58d87e7baa7e38081e8bf81e7a7bbe5928ce689a9e5aeb9efbc8ce4bba5e58f8ae9a9b1e58aa8e38081e5beaee7a081e38081e8a1a5e4b881e7bbb4e68aa4e4b88ee8bf90e8a18ce79b91e68ea7e38082222c226c696e6b223a22232f73657276696365733f736572766963653d636c7573746572222c22627574746f6e223a22e4ba86e8a7a3e99b86e7bea4e8bf90e7bbb4227d2c7b2269636f6e223a22736869656c64222c227469746c65223a22495420e59fbae7a180e8aebee696bde7bbb4e4bf9d222c2264657363223a22e99da2e59091e69c8de58aa1e599a8e38081e7bd91e7bb9ce4b88ee5ad98e582a8e8aebee5a487efbc8ce68f90e4be9be7a1ace4bbb6e5928ce8bdafe4bbb6e694afe68c81e38081e58d87e7baa7e689a9e5aeb9e38081e8aebee5a487e690ace8bf81e38081e695b0e68daee8bf81e7a7bbe38081e68a80e69cafe592a8e8afa2e58f8ae59fb9e8aeade7ad89e69c8de58aa1e38082222c226c696e6b223a22232f73657276696365733f736572766963653d6d61696e74656e616e6365222c22627574746f6e223a22e4ba86e8a7a3e59fbae7a180e7bbb4e4bf9d227d2c7b2269636f6e223a2263686970222c227469746c65223a2247505520e4b893e9a1b9e7bbb4e4bf9d222c2264657363223a22e9809ae8bf872047505520e581a5e5bab7e6a380e69fa5e38081e6b8a9e5baa6e79b91e68ea7e3808145434320e99499e8afafe7bb9fe8aea1e4b88ee588a9e794a8e78e87e58886e69e90e8af86e588abe8bf90e8a18ce9a38ee999a9efbc8ce7bb93e59088e9a1b9e79baee99c80e6b182e8a784e58892e5a487e69cbae38081e5a487e4bbb6e4b88ee7bbb4e68aa4e696b9e6a188e38082222c226c696e6b223a22232f73657276696365733f736572766963653d6770752d63617265222c22627574746f6e223a22e4ba86e8a7a32047505520e7bbb4e4bf9d227d2c7b2269636f6e223a22746f6f6c222c227469746c65223a2247505520e69585e99a9ce8af8ae696ade4b88ee7bbb4e4bfae222c2264657363223a22e59bb4e7bb95e69585e99a9ce697a5e5bf97e58886e69e90e38081e997aee9a298e5ae9ae4bd8de38081e7bbb4e4bfaee68896e69bb4e68da2e696b9e6a188e8af84e4bcb0e4bba5e58f8ae7bbb4e4bfaee5908ee6a380e6b58befbc8ce58d8fe5908ce5a484e790862047505520e8aebee5a487e69585e99a9ce4b88ee681a2e5a48de99c80e6b182e38082222c226c696e6b223a22232f73657276696365733f736572766963653d6770752d63617265222c22627574746f6e223a22e592a8e8afa2e7bbb4e4bfaee99c80e6b182227d5d2c22737570706f72744172656173223a5b7b226c6162656c223a22e68a80e69cafe694afe68c81222c227469746c65223a22e4bb8ee7b3bbe7bb9fe69eb6e69e84e588b0e8bf90e8a18ce78eafe5a283222c2264657363223a22e7bb93e59088e8aea1e7ae97e38081e7bd91e7bb9ce38081e5ad98e582a8e4b88ee8bdafe4bbb6e78eafe5a283e58886e69e90e997aee9a298efbc8ce585b3e6b3a8e7b3bbe7bb9fe79a84e58fafe794a8e680a7e38081e680a7e883bde38081e58fafe7aea1e79086e680a7e38081e58fafe689a9e5b195e680a7e4b88ee5ae89e585a8e680a7e38082227d2c7b226c6162656c223a22e69c8de58aa1e6b581e7a88b222c227469746c65223a22e8aea9e58f98e69bb4e4b88ee997aee9a298e5a484e79086e69c89e68daee58fafe5beaa222c2264657363223a22e5b086e58f98e69bb4e7aea1e79086e38081e997aee9a298e7aea1e79086e38081e5aeb9e9878fe7aea1e79086e5928ce8b4a8e9878fe8b79fe8b8aae8b4afe7a9bfe69c8de58aa1e8bf87e7a88befbc8ce6988ee7a1aee997aee9a298e38081e5a484e79086e68eaae696bde4b88ee9aa8ce8af81e7bb93e69e9ce38082227d2c7b226c6162656c223a22e69585e99a9ce5938de5ba94222c227469746c65223a22e4bb8ee8af8ae696ade588b0e681a2e5a48de5bda2e68890e997ade78eaf222c2264657363223a22e59bb4e7bb95e69585e99a9ce58886e69e90e38081e5ba94e680a5e5a484e79086e38081e7bbb4e4bfaee69bb4e68da2e58f8ae681a2e5a48de9aa8ce8af81e588b6e5ae9ae5a484e79086e8b7afe5be84efbc8ce5b9b6e7bb93e59088e5ae9ee99985e997aee9a298e5ae89e68e92e68a80e69cafe58d8fe5908ce38082227d2c7b226c6162656c223a22e4baa4e4bb98e4bf9de99a9c222c227469746c65223a22e68c89e9a1b9e79baee9858de7bdaee4babae59198e4b88ee5a487e4bbb6222c2264657363223a22e6a0b9e68daee8aebee5a487e78eb0e78ab6e38081e4b89ae58aa1e9878de8a681e680a7e4b88ee4baa4e4bb98e8a681e6b182efbc8ce6b29fe9809ae9a9bbe59cbae694afe68c81e38081e5a487e69cbae5a487e4bbb6e58f8ae69c8de58aa1e7ad89e7baa7efbc8ce5bda2e68890e98082e59088e9a1b9e79baee79a84e69c8de58aa1e7bb84e59088e38082227d5d2c226d696c6573746f6e65735469746c65223a22e9a1b9e79baee58aa8e68081222c226d696c6573746f6e657344657363223a22e4ba86e8a7a3e9a1b9e79baee4baa4e4bb98e38081e983a8e7bdb2e4bc98e58c96e4b88ee68c81e7bbade69c8de58aa1e79a84e69c80e696b0e8bf9be5b195e38082222c226d696c6573746f6e6573223a5b7b2264617465223a22323032362d31312d3130222c22746167223a22e4bd93e9aa8ce4bc98e58c96222c227469746c65223a22e5ae98e7bd91e59381e7898ce4b88ee6b58fe8a788e4bd93e9aa8ce58d87e7baa7222c2264657363223a22e5ae8ce68890e9a696e9a1b5e4b88ee4baa7e59381e4b8ade5bf83e5b9b3e58fb0e585a5e58fa3e8b083e695b4efbc8ce69bb4e696b0e585ace58fb8e59381e7898ce6a087e8af86efbc8ce5b9b6e4bc98e58c96e6a18ce99da2e7abafe4b88ee7a7bbe58aa8e7abafe6b58fe8a788e4bd93e9aa8ce38082227d2c7b2264617465223a22323032362d31312d3039222c22746167223a22e58685e5aeb9e69bb4e696b0222c227469746c65223a22e59b9be5a4a7e4b89ae58aa1e696b9e59091e5ae8ce68890e4b88ae7babf222c2264657363223a22e4b88ae7babfe69c8de58aa1e599a8e695b4e69cbae38081e69cace59cb0e58c96e983a8e7bdb2e38081e68ea8e79086e4bc98e58c96e38081e99b86e7bea4e4baa4e4bb98e8bf90e7bbb4e7bbb4e4bf9de59b9be4b8aae4b89ae58aa1e696b9e59091efbc8ce5b9b6e8a1a5e58585e69c8de58aa1e599a8e59e8be58fb7e38081e59bbde4baa7e7ae97e58a9be4b88ee69c8de58aa1e7bb86e58899e38082227d2c7b2264617465223a22323032362d31312d3036222c22746167223a22e7b3bbe7bb9fe4baa4e4bb98222c227469746c65223a22e5ae98e7bd91e69c8de58aa1e7b3bbe7bb9fe5ae8ce68890e4baa4e4bb98222c2264657363223a22e5ae8ce68890e5ae98e7bd91e5898de5908ee58fb0e4b88ee695b0e68daee5ba93e78eafe5a283e4baa4e4bb98efbc8ce585ace58fb8e4bb8be7bb8de38081e4baa7e59381e883bde58a9be5928ce4b89ae58aa1e592a8e8afa2e58fafe59ca8e7babfe7bbb4e68aa4e4b88ee5b195e7a4bae38082227d2c7b2264617465223a22323032362d31312d3035222c22746167223a22e9a1b9e79baee8bf9be5b195222c227469746c65223a22e585ace58fb8e5ae98e7bd91e5b195e7a4bae78988e69cace5ae8ce68890222c2264657363223a22e5ae8ce68890e585ace58fb8e4bb8be7bb8de38081e4baa7e59381e4b8ade5bf83e38081e68a80e69cafe69c8de58aa1e38081e68b9be59586e59088e4bd9ce4b88ee88194e7b3bbe592a8e8afa2e9a1b5e99da2efbc8ce5bda2e68890e4bb8ee4ba86e8a7a3e4b89ae58aa1e588b0e68f90e4baa4e99c80e6b182e79a84e5ae8ce695b4e8aebfe997aee8b7afe5be84e38082227d5d7d' USING utf8mb4), 1 WHERE @xgsz_initialize;
+
+INSERT INTO `site_page` (`id`, `payload`, `version`)
+ SELECT 'contact', CONVERT(X'7b226865726f5469746c65223a22e88194e7b3bbe68891e4bbac222c226865726f44657363223a22e79bb4e68ea5e88194e7b3bbe88aafe58589e699bae695b0efbc8ce8818ae8818ae682a8e79a84e4b89ae58aa1e4b88ee7ae97e58a9be99c80e6b182e38082222c227469746c65223a22e98089e4b880e7a78de696b9e4bebfe79a84e696b9e5bc8f5c6ee4b88ee68891e4bbace4baa4e6b581222c2264657363223a22e695b4e69cbae9858de7bdaee38081e59bbde4baa7e7ae97e58a9be38081e6a8a1e59e8be68ea8e79086e4bc98e58c96e4b88ee8bf90e7bbb4e69c8de58aa1efbc8ce6aca2e8bf8ee79bb4e68ea5e69da5e794b5e68896e9809ae8bf87e4bc81e4b89ae5beaee4bfa1e6b29fe9809ae38082222c226e6f7465223a22e4b99fe58fafe4bba5e79599e4b88be99c80e6b182e4b88ee88194e7b3bbe696b9e5bc8fefbc8ce696b9e4bebfe68891e4bbace8bf9be4b880e6ada5e4ba86e8a7a3e682a8e79a84e9a1b9e79baee38082222c22627574746f6e223a22e5a1abe58699e4b89ae58aa1e99c80e6b182227d' USING utf8mb4), 1 WHERE @xgsz_initialize;
+
+INSERT INTO `site_metadata` (`name`, `content_value`)
+ SELECT 'cms-admin-migrated-v1', 'complete' WHERE @xgsz_initialize;
+
+INSERT INTO `site_metadata` (`name`, `content_value`)
+ SELECT 'cms-catalog-v1', 'complete' WHERE @xgsz_initialize;
+
+INSERT INTO `site_metadata` (`name`, `content_value`)
+ SELECT 'initial-content-v1', 'complete' WHERE @xgsz_initialize;
+
+INSERT INTO `site_metadata` (`name`, `content_value`)
+ SELECT 'company-offerings-20261109', 'complete' WHERE @xgsz_initialize;
+
+INSERT INTO `site_metadata` (`name`, `content_value`)
+ SELECT 'company-name-20261110', 'complete' WHERE @xgsz_initialize;
+
+COMMIT;

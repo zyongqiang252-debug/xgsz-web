@@ -1,0 +1,15 @@
+.service-panel {
+  margin-bottom: 46rpx;
+}
+
+.service-panel-link {
+  margin-top: 22rpx;
+  color: #9fe4de;
+}
+
+.service-list {
+  padding: 0 26rpx;
+  border: 1rpx solid #e1eaec;
+  border-radius: 12rpx;
+  background: #f8fbfb;
+}

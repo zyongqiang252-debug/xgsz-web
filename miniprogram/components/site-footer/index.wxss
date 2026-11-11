@@ -1,0 +1,9 @@
+.footer-bottom-line {
+  display: block;
+  margin-top: 6rpx;
+}
+
+.footer-bottom-link {
+  margin-top: 10rpx;
+  color: #7fc8c3;
+}

@@ -1,0 +1,47 @@
+.hero{background-image:none;background-color:#0c2430}.hero::before{z-index:1;pointer-events:none}.hero-inner{position:relative;z-index:2}.cms-hero-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.7}.cms-product-cover{width:100%;height:236px;object-fit:contain;background:#f1f5f7;padding:12px}.cms-detail-image{display:block;max-width:100%;height:auto;max-height:520px;object-fit:contain;margin:16px auto}.cms-brand-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px}.cms-brand-grid article{min-width:0;border-top:1px solid #ccdade;padding-top:24px}.cms-brand-grid img{width:100%;height:160px;object-fit:contain}.cms-brand-grid h3{font-size:21px;margin:18px 0 10px}.cms-brand-grid p,.cms-brand-grid figcaption{color:#536873;line-height:1.8;overflow-wrap:anywhere}.cms-brand-grid figure{margin:0}.cms-slide-controls{display:flex;gap:8px;margin-top:12px}.cms-slide-controls button{width:44px;height:44px;border:1px solid #8baab2;background:#12333d;color:#fff;border-radius:3px}.cms-slide-controls button[aria-pressed=true]{background:#007d75;border-color:#7ec5bb}.hero-bottom #hero-slide-link{display:block;color:#e1f0f1;font-size:15px;margin-top:12px}.capability-strip .container:empty{display:none}.category-tabs{flex-wrap:wrap}.footer-bottom img{object-fit:contain}.cms-page-title{white-space:pre-line}@media(max-width:700px){.cms-brand-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.cms-brand-grid h3{font-size:18px}.cms-brand-grid img{height:120px}.cms-product-cover{height:210px}.cms-brand-grid p{font-size:14px}}
+
+.category-tabs button{max-width:100%;white-space:normal;overflow-wrap:anywhere}.product-body h3,.partner-card h3,.company-intro h2{overflow-wrap:anywhere}
+
+#app{overflow-wrap:anywhere}
+.header-inner,.brand-words,.main-nav,.hero-copy,.service-row>div,.service-detail summary>div,.company-business-list article>div,.cta-inner>div{min-width:0}
+.site-header{height:auto;min-height:82px}
+.header-inner{min-height:82px;height:auto;padding-block:12px;flex-wrap:wrap}
+.header-inner>.brand{min-width:0;max-width:260px;flex-shrink:1}
+.brand-symbol{flex-shrink:0}
+.brand{max-width:100%;min-width:0}
+.main-nav{height:auto;flex:1;flex-wrap:wrap;justify-content:center;gap:8px 24px;white-space:normal}
+.main-nav a{min-height:44px;height:auto;max-width:100%}
+.header-actions{flex-shrink:0}
+.hero{height:auto;min-height:590px}
+.hero-inner{min-height:inherit;flex-direction:column;align-items:stretch;justify-content:center;gap:40px;padding-top:80px;padding-bottom:30px}
+.hero-copy{padding-bottom:0;margin-block:auto}
+.hero-bottom{position:static;flex-wrap:wrap;gap:20px;margin-top:auto}
+.hero-bottom>div{min-width:0;max-width:100%;flex:1;flex-wrap:wrap}
+.hero-bottom>a{flex-shrink:0}
+.hero-buttons,.cms-slide-controls{flex-wrap:wrap}
+.hero-buttons .button{max-width:100%;white-space:normal}
+.product-card{display:flex;flex-direction:column}
+.product-body{flex:1;display:flex;flex-direction:column;min-width:0}
+.product-body>p{margin-bottom:22px}
+.product-bottom{margin-top:auto;flex-wrap:wrap}
+.product-bottom>span{min-width:0}
+.service-visual{display:flex;flex-direction:column}
+.service-visual>a{position:static;margin-top:auto;max-width:100%}
+.service-visual .core-diagram{position:relative;inset:auto;max-width:100%;margin:24px auto;flex-shrink:0;transform:scale(.85)}
+.core-chip{padding:8px}
+.core-chip>span{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.4;letter-spacing:1px}
+.industry-tabs button{min-width:0;padding-inline:8px}
+.company-visual{display:flex;align-items:end}
+.company-visual>div{position:relative;inset:auto;width:100%;padding:38px 34px}
+.cms-slide-controls{max-width:100%}
+.modal{overflow-wrap:anywhere}
+@media(min-width:1600px){.hero{min-height:670px}}
+@media(max-width:760px){
+  .site-header,.header-inner{min-height:70px}
+  .header-inner{flex-wrap:nowrap;padding-block:10px}
+  .header-inner>.brand{flex:1;max-width:none}
+  .main-nav{top:100%;flex-wrap:nowrap;align-items:stretch}
+  .hero{min-height:600px}
+  .hero-inner{padding-top:60px;padding-bottom:24px}
+  .company-visual>div{padding:26px}
+}

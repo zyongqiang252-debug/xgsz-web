@@ -1,0 +1,64 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/products/index",
+    "pages/services/index",
+    "pages/about/index",
+    "pages/contact/index",
+    "pages/partners/index",
+    "pages/product-detail/index",
+    "pages/inquiry/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#06151f",
+    "navigationBarTitleText": "芯光智数",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f5f8f8"
+  },
+  "tabBar": {
+    "color": "#7f9298",
+    "selectedColor": "#008f89",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页",
+        "iconPath": "assets/tab-home.png",
+        "selectedIconPath": "assets/tab-home-active.png"
+      },
+      {
+        "pagePath": "pages/products/index",
+        "text": "产品",
+        "iconPath": "assets/tab-products.png",
+        "selectedIconPath": "assets/tab-products-active.png"
+      },
+      {
+        "pagePath": "pages/services/index",
+        "text": "服务",
+        "iconPath": "assets/tab-services.png",
+        "selectedIconPath": "assets/tab-services-active.png"
+      },
+      {
+        "pagePath": "pages/about/index",
+        "text": "关于",
+        "iconPath": "assets/tab-about.png",
+        "selectedIconPath": "assets/tab-about-active.png"
+      },
+      {
+        "pagePath": "pages/contact/index",
+        "text": "联系",
+        "iconPath": "assets/tab-contact.png",
+        "selectedIconPath": "assets/tab-contact-active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents",
+  "usingComponents": {
+    "site-footer": "/components/site-footer/index",
+    "consult-fab": "/components/consult-fab/index"
+  }
+}

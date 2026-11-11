@@ -7,9 +7,9 @@
     <select id="findAllProductCategories" resultType="com.cows.entity.ProductCategory">
         SELECT * FROM ProductCategories WHERE isDeleted = 0
     </select>
-    <insert id="insertProductCategory" parameterType="com.cows.entity.ProductCategory">
+    <insert id="insertProductCategory" parameterType="com.cows.entity.ProductCategory" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO ProductCategories (name, description, isEnabled, isDeleted)
-        VALUES (#{name}, #{description}, 1, 0)
+        VALUES (#{name}, #{description}, #{isEnabled}, 0)
     </insert>
     <update id="updateProductCategory" parameterType="com.cows.entity.ProductCategory">
         UPDATE ProductCategories 

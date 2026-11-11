@@ -7,7 +7,7 @@
     <select id="findAllAdmins" resultType="com.cows.entity.Admin">
         SELECT * FROM Admins WHERE isDeleted = 0
     </select>
-    <insert id="insertAdmin" parameterType="com.cows.entity.Admin">
+    <insert id="insertAdmin" parameterType="com.cows.entity.Admin" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO Admins (userName, password, permissions,  remarks, isDeleted, isEnable)
         VALUES (#{userName}, #{password}, #{permissions}, #{remarks}, #{isDeleted}, #{isEnable})
     </insert>

@@ -1,0 +1,43 @@
+/* Keep reading and editing legible without changing the established visual identity. */
+.offering-section:not(:has(.offering-hardware)) .offering-group-grid{align-items:start}
+.offering-heading p{max-width:65ch}
+.offering-group-grid>article:only-child .offering-items li{min-height:44px;display:inline-flex;align-items:center}
+.footer-main{grid-template-columns:1.6fr 1fr 1fr;max-width:1080px}
+.footer-contact-link{display:inline-flex!important;align-items:center;gap:12px;margin-top:18px!important;color:#b1dedb!important}
+.footer-contact-link .icon{width:16px}
+.footer-details{display:flex;flex-wrap:wrap;gap:16px 40px;padding-bottom:26px;color:#b4c8d1;font-size:14px;line-height:1.8}
+.footer-details:empty{display:none;padding:0}
+.footer-details>span{max-width:100%;overflow-wrap:anywhere}
+.footer-details p{margin:0}
+.footer-details small{display:block;margin-bottom:3px;color:#91aab6;font-size:12px}
+.subhero .container{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:36px}
+.subhero-copy{min-width:0}
+.subhero h1,.subhero p{max-width:900px}
+.offerings-page .offering-heading{margin-bottom:24px}
+.offerings-page .offering-heading h2{margin-bottom:8px}
+.offerings-page .offering-heading>div>.icon{display:none}
+.about-page .company-overview{align-items:start}
+.about-page .company-visual{min-height:420px}
+.about-page .company-principles .section{padding-block:64px}
+
+@media(max-width:760px){
+  :is(.hero-copy>p,.section-head p,.product-body>p,.service-row p,.industry-copy p,.cta-inner p,.subhero p,.steps p,.service-detail-content>p,.service-items>div,.service-assurance p,.partner-card p,.about-story p,.about-demo p,.focus-grid p){font-size:16px;line-height:1.9}
+  :is(.product-bottom>span,.product-tag,.caption,.footer-brand>p,.footer-main>div>a:not(.brand),.footer-main>div>button,.footer-note,.footer-bottom,.partner-card>span,.partner-invite small){font-size:14px;line-height:1.9}
+  .service-visual>p{font-size:16px;line-height:1.85}
+  :is(form input:not([type=checkbox]),form select,form textarea){font-size:16px}
+  :is(form label,.check-label,.form-error,.feature-list li){font-size:14px}
+  :is(.hero-eyebrow,.eyebrow,.hero-bottom b,.hero-bottom>a){font-size:12px;line-height:1.8}
+  .capability-strip p{font-size:13px;line-height:1.7}
+  .hero-buttons>.button,.header-actions>.button-small{font-size:14px}
+  .category-tabs{gap:16px 22px}
+  .category-tabs button{font-size:15px}
+  .product-card{border-color:#cadde1}
+  .product-body{gap:4px}
+  .product-body h3{line-height:1.55}
+  .service-row{gap:16px}
+  .footer-main h3{font-size:16px}
+  .modal-inner>p,.demo-notice{font-size:14px}
+  .subhero .container{grid-template-columns:1fr;gap:22px}
+  .subhero-platforms .platform-links{justify-content:flex-start}
+  .home-platforms{justify-content:flex-start}
+}

@@ -1,0 +1,56 @@
+<view class="page-shell">
+  <view wx:if="{{loading}}" class="loading-state">
+    <view class="loading-dot"></view>
+    <view class="loading-dot"></view>
+    <view class="loading-dot"></view>
+    <text class="loading-text">正在加载合作信息…</text>
+  </view>
+
+  <view wx:elif="{{error}}" class="error-state">
+    <text class="error-title">暂时无法加载合作信息</text>
+    <text class="error-desc">{{error}}</text>
+    <button class="btn btn-primary" bindtap="retry">重新加载</button>
+  </view>
+
+  <block wx:else>
+    <view class="subhero">
+      <view class="subhero-orbit"></view>
+      <view class="subhero-orbit-small"></view>
+      <view class="container subhero-inner">
+        <text class="crumb">首页 / {{content.pages.global.partnersNav}}</text>
+        <text class="subhero-title">{{page.heroTitle}}</text>
+        <text class="subhero-desc">{{page.heroDesc}}</text>
+      </view>
+    </view>
+
+    <view class="section surface">
+      <view class="container">
+        <view class="section-head">
+          <text class="eyebrow"><view class="eyebrow-dot"></view>合作方向</text>
+          <text class="section-title">{{page.sectionTitle}}</text>
+          <text class="section-desc">{{page.sectionDesc}}</text>
+        </view>
+        <view class="partner-grid">
+          <view class="partner-card" wx:for="{{businesses}}" wx:key="id">
+            <text class="partner-index">0{{index + 1}}</text>
+            <text class="partner-name">{{item.name}}</text>
+            <text class="partner-desc">{{item.description}}</text>
+            <text class="partner-meta">{{item.contactInfo}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="invite">
+      <view class="container">
+        <text class="invite-title">{{page.inviteTitle}}</text>
+        <text class="invite-desc preline">{{page.inviteDesc}}</text>
+        <button class="btn btn-primary" bindtap="openInquiry" data-intent="合作伙伴申请">{{page.inviteButton}} →</button>
+        <text class="invite-note">{{page.disclaimer}}</text>
+      </view>
+    </view>
+
+    <site-footer content="{{content}}" />
+    <consult-fab intent="合作伙伴申请" />
+  </block>
+</view>

@@ -1,0 +1,78 @@
+<view class="page-shell">
+  <view wx:if="{{loading}}" class="loading-state">
+    <view class="loading-dot"></view>
+    <view class="loading-dot"></view>
+    <view class="loading-dot"></view>
+    <text class="loading-text">正在加载技术服务…</text>
+  </view>
+
+  <view wx:elif="{{error}}" class="error-state">
+    <text class="error-title">暂时无法加载技术服务</text>
+    <text class="error-desc">{{error}}</text>
+    <button class="btn btn-primary" bindtap="retry">重新加载</button>
+  </view>
+
+  <block wx:else>
+    <view class="subhero">
+      <view class="subhero-orbit"></view>
+      <view class="subhero-orbit-small"></view>
+      <view class="container subhero-inner">
+        <text class="crumb">首页 / {{content.pages.global.servicesNav}}</text>
+        <text class="subhero-title">{{page.heroTitle}}</text>
+        <text class="subhero-desc">{{page.heroDesc}}</text>
+      </view>
+    </view>
+
+    <view class="section surface">
+      <view class="container">
+        <view class="section-head">
+          <text class="eyebrow"><view class="eyebrow-dot"></view>服务目录</text>
+          <text class="section-title">从部署到运维，按阶段组合服务</text>
+          <text class="section-desc">展开服务查看交付内容与适用边界，需求明确前也可以先沟通。</text>
+        </view>
+
+        <view class="service-card" wx:for="{{services}}" wx:key="id">
+          <view class="service-head" data-id="{{item.id}}" bindtap="toggleService">
+            <view class="service-number">0{{index + 1}}</view>
+            <view class="service-head-copy">
+              <text class="service-name">{{item.name}}</text>
+              <text class="service-en">{{item.en}}</text>
+            </view>
+            <text class="service-toggle {{openId === item.id ? 'open' : ''}}">＋</text>
+          </view>
+          <view class="service-body" wx:if="{{openId === item.id}}">
+            <text class="service-desc">{{item.desc}}</text>
+            <view class="service-items">
+              <view class="service-item" wx:for="{{item.items}}" wx:for-item="line" wx:key="*this">
+                <text class="feature-check">✓</text>
+                <text class="service-item-text">{{line}}</text>
+              </view>
+            </view>
+            <text class="service-note">{{item.note}}</text>
+            <button class="btn btn-primary btn-small" bindtap="consultService" data-intent="{{item.name}}">咨询这项服务 →</button>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="assurance">
+      <view class="container">
+        <text class="assurance-kicker">服务原则</text>
+        <text class="assurance-title">{{page.assuranceTitle}}</text>
+        <text class="assurance-desc preline">{{page.assuranceDesc}}</text>
+      </view>
+    </view>
+
+    <view class="cta">
+      <text class="cta-title">{{content.pages.global.ctaTitle}}</text>
+      <text class="cta-desc">{{content.pages.global.ctaDesc}}</text>
+      <view class="cta-actions">
+        <button class="btn btn-primary" bindtap="consultService" data-intent="技术服务咨询">{{content.pages.global.ctaButton}} →</button>
+        <button class="btn btn-ghost" bindtap="openProducts">查看产品方案 →</button>
+      </view>
+    </view>
+
+    <site-footer content="{{content}}" />
+    <consult-fab intent="技术服务咨询" />
+  </block>
+</view>

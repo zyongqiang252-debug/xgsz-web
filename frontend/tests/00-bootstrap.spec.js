@@ -1,0 +1,21 @@
+import { test,expect } from '@playwright/test';
+import { credentials } from './support.js';
+test('首次创建管理员、退出、错误密码及重新登录',async({page})=>{
+  await page.goto('/admin.html');
+  await expect(page.getByRole('heading',{name:'创建管理员账号'})).toBeVisible();
+  await page.getByLabel('管理员账号').fill(credentials.username);
+  await page.getByLabel('密码',{exact:true}).fill(credentials.password);
+  await page.getByLabel('确认密码',{exact:true}).fill(credentials.password);
+  await page.getByRole('button',{name:'创建账号并进入后台'}).click();
+  await expect(page.getByRole('heading',{name:'网站概览'})).toBeVisible();
+  await page.screenshot({path:'../docs/screenshots/connected-admin-overview.png',fullPage:true});
+  await page.getByRole('button',{name:'退出登录'}).click();
+  await expect(page.getByRole('heading',{name:'欢迎回来'})).toBeVisible();
+  await page.getByLabel('管理员账号').fill(credentials.username);
+  await page.getByLabel('密码',{exact:true}).fill('incorrect');
+  await page.getByRole('button',{name:'登录后台'}).click();
+  await expect(page.getByRole('alert')).toContainText('账号或密码不正确');
+  await page.getByLabel('密码',{exact:true}).fill(credentials.password);
+  await page.getByRole('button',{name:'登录后台'}).click();
+  await expect(page.getByRole('heading',{name:'网站概览'})).toBeVisible();
+});

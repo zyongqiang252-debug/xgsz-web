@@ -1,0 +1,124 @@
+.subhero-title {
+  font-size: 46rpx;
+  letter-spacing: -0.3rpx;
+}
+
+.service-card {
+  margin-bottom: 20rpx;
+  overflow: hidden;
+  border: 1rpx solid #e1eaec;
+  border-radius: 12rpx;
+  background: #ffffff;
+}
+
+.service-head {
+  display: flex;
+  align-items: center;
+  padding: 26rpx 24rpx;
+}
+
+.service-number {
+  width: 54rpx;
+  color: #9aadb2;
+  font-size: 19rpx;
+}
+
+.service-head-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.service-name {
+  display: block;
+  color: #17323d;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.service-en {
+  display: block;
+  margin-top: 5rpx;
+  color: #9aadb2;
+  font-size: 16rpx;
+  letter-spacing: 1rpx;
+}
+
+.service-toggle {
+  color: #008f88;
+  font-size: 38rpx;
+  font-weight: 300;
+  transition: transform 0.2s;
+}
+
+.service-toggle.open {
+  transform: rotate(45deg);
+}
+
+.service-body {
+  padding: 0 24rpx 28rpx 78rpx;
+}
+
+.service-desc {
+  display: block;
+  color: #637a82;
+  font-size: 23rpx;
+  line-height: 1.85;
+}
+
+.service-items {
+  margin: 18rpx 0;
+  padding: 16rpx 20rpx;
+  border-radius: 8rpx;
+  background: #f5faf9;
+}
+
+.service-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 7rpx 0;
+}
+
+.service-item-text {
+  color: #4d6973;
+  font-size: 22rpx;
+  line-height: 1.7;
+}
+
+.service-note {
+  display: block;
+  color: #8a9ba1;
+  font-size: 21rpx;
+  line-height: 1.75;
+}
+
+.service-body .btn {
+  margin-top: 22rpx;
+}
+
+.assurance {
+  padding: 56rpx 0;
+  background: #092330;
+}
+
+.assurance-kicker {
+  display: block;
+  color: #54ded4;
+  font-size: 20rpx;
+  letter-spacing: 2rpx;
+}
+
+.assurance-title {
+  display: block;
+  margin-top: 12rpx;
+  color: #ffffff;
+  font-size: 40rpx;
+  font-weight: 600;
+}
+
+.assurance-desc {
+  display: block;
+  margin-top: 16rpx;
+  color: #9bb6bc;
+  font-size: 24rpx;
+  line-height: 1.9;
+}

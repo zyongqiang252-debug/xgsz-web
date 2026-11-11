@@ -11,7 +11,7 @@
     <select id="findAllOrders" resultType="com.cows.entity.Order">
         SELECT * FROM Orders
     </select>
-    <insert id="insertOrder" parameterType="com.cows.entity.Order">
+    <insert id="insertOrder" parameterType="com.cows.entity.Order" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO Orders (userId, totalPrice, status) VALUES (#{userId}, #{totalPrice}, #{status})
     </insert>
     <update id="updateOrder" parameterType="com.cows.entity.Order">

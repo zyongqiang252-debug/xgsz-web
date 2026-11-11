@@ -6,8 +6,8 @@
     <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://127.0.0.1:3306/springBootTest"
-                        userId="root"
-                        password="lyc123456">
+                        userId="YOUR_DATABASE_USER"
+                        password="YOUR_DATABASE_PASSWORD">
         </jdbcConnection>
         <javaModelGenerator targetPackage="com.example.lyc.springboot.demo.model" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>

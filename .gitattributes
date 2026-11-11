@@ -1,0 +1,9 @@
+* text=auto
+
+# 容器构建脚本必须保持 LF，Windows 检出也不能转成 CRLF
+*.sh text eol=lf
+Dockerfile text eol=lf
+.dockerignore text eol=lf
+
+# Windows 批处理必须保持 CRLF
+*.cmd text eol=crlf

@@ -7,7 +7,7 @@
     <select id="findAllAbouts" resultType="com.cows.entity.About">
         SELECT * FROM About WHERE isDeleted = 0
     </select>
-    <insert id="insertAbout" parameterType="com.cows.entity.About">
+    <insert id="insertAbout" parameterType="com.cows.entity.About" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO About (imageUrl, description, updateTime, createTime, isDeleted)
         VALUES (#{imageUrl}, #{description}, #{updateTime}, #{createTime}, 0)
     </insert>

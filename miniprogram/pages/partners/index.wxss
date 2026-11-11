@@ -1,0 +1,42 @@
+.partner-index {
+  display: block;
+  color: #9aadb2;
+  font-size: 20rpx;
+}
+
+.partner-card .partner-name {
+  margin-top: 8rpx;
+}
+
+.invite {
+  padding: 60rpx 0 70rpx;
+  background: #092330;
+}
+
+.invite-title {
+  display: block;
+  color: #ffffff;
+  font-size: 42rpx;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.invite-desc {
+  display: block;
+  margin-top: 16rpx;
+  color: #9bb6bc;
+  font-size: 25rpx;
+  line-height: 1.9;
+}
+
+.invite .btn {
+  margin-top: 30rpx;
+}
+
+.invite-note {
+  display: block;
+  margin-top: 24rpx;
+  color: #6f8b93;
+  font-size: 21rpx;
+  line-height: 1.8;
+}

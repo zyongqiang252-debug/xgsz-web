@@ -1,0 +1,180 @@
+<view class="page-shell">
+  <view wx:if="{{loading}}" class="loading-state">
+    <view class="loading-dot"></view>
+    <view class="loading-dot"></view>
+    <view class="loading-dot"></view>
+    <text class="loading-text">正在加载官网内容…</text>
+  </view>
+
+  <view wx:elif="{{error}}" class="error-state">
+    <text class="error-title">暂时无法加载官网</text>
+    <text class="error-desc">{{error}}</text>
+    <button class="btn btn-primary" bindtap="retry">重新加载</button>
+  </view>
+
+  <block wx:else>
+    <view class="hero">
+      <image wx:if="{{home.heroImage}}" class="hero-image" src="{{home.heroImage}}" mode="aspectFill" />
+      <view class="hero-mask"></view>
+      <view class="hero-inner">
+        <view class="hero-brand">
+          <image class="hero-logo" src="{{global.logo}}" mode="aspectFit" />
+          <text class="hero-brand-name">{{global.name}}</text>
+          <text class="hero-brand-en">{{global.englishName}}</text>
+          <view class="hero-consult" bindtap="openInquiry" data-intent="业务咨询">业务咨询</view>
+        </view>
+        <view class="hero-eyebrow"><view class="eyebrow-dot"></view>{{home.heroEyebrow}}</view>
+        <text class="hero-title preline">{{home.heroTitle}}</text>
+        <text class="hero-desc preline">{{home.heroDesc}}</text>
+        <view class="hero-actions">
+          <button class="btn btn-primary" bindtap="openProducts">{{home.heroButton}} →</button>
+          <button class="btn btn-ghost" bindtap="openInquiry" data-intent="技术咨询">{{home.heroConsult}} →</button>
+        </view>
+        <text class="hero-note">{{home.heroNote}}</text>
+      </view>
+    </view>
+
+    <view class="capability-grid">
+      <view class="capability-item" wx:for="{{home.capabilities}}" wx:key="title" data-solution="{{item.solutionKey}}" bindtap="openCapability">
+        <text class="capability-index">0{{index + 1}}</text>
+        <view class="capability-copy">
+          <text class="capability-title">{{item.title}}</text>
+          <text class="capability-desc">{{item.desc}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="section soft">
+      <view class="container">
+        <view class="section-head">
+          <text class="eyebrow"><view class="eyebrow-dot"></view>产品与方案</text>
+          <text class="section-title">{{home.productsTitle}}</text>
+          <text class="section-desc">{{home.productsDesc}}</text>
+          <view class="text-link" bindtap="openProducts">全部产品 <text class="text-link-arrow">→</text></view>
+        </view>
+
+        <scroll-view class="scroll-tabs" scroll-x enhanced show-scrollbar="{{false}}">
+          <view class="tab-row">
+            <view
+              wx:for="{{categories}}"
+              wx:key="key"
+              class="tab-chip {{activeCategory === item.key ? 'active' : ''}}"
+              data-key="{{item.key}}"
+              bindtap="selectCategory"
+            >{{item.name}}</view>
+          </view>
+        </scroll-view>
+
+        <view class="product-grid">
+          <view class="product-card" wx:for="{{visibleProducts}}" wx:key="id" data-id="{{item.id}}" bindtap="openProduct">
+            <view class="product-cover">
+              <image wx:if="{{item.coverImage}}" class="product-cover-image" src="{{item.coverImage}}" mode="aspectFill" />
+              <view wx:else class="product-art">
+                <view class="product-art-unit"></view>
+                <view class="product-art-unit product-art-unit-short"></view>
+                <view class="product-art-unit"></view>
+                <view class="product-art-light"></view>
+              </view>
+            </view>
+            <view class="product-body">
+              <text class="product-tag">{{item.tag}}</text>
+              <text class="product-name">{{item.name}}</text>
+              <text class="product-desc">{{item.desc}}</text>
+              <view class="feature-list" wx:if="{{item.features.length}}">
+                <view class="feature-row" wx:for="{{item.features}}" wx:for-item="feature" wx:key="*this">
+                  <text class="feature-check">✓</text><text>{{feature}}</text>
+                </view>
+              </view>
+              <view class="product-bottom">
+                <text class="product-brand">{{item.brand || '按需沟通配置'}}</text>
+                <text class="product-link">了解配置 →</text>
+              </view>
+            </view>
+          </view>
+        </view>
+        <text class="tiny">{{global.productDisclaimer}}</text>
+      </view>
+    </view>
+
+    <view class="section surface">
+      <view class="container">
+        <view class="service-panel">
+          <text class="service-panel-title preline">{{home.servicesVisualTitle}}</text>
+          <text class="service-panel-desc">{{home.servicesVisualDesc}}</text>
+          <view class="text-link service-panel-link" bindtap="openService" data-id="">
+            了解技术服务 <text class="text-link-arrow">→</text>
+          </view>
+        </view>
+        <view class="section-head">
+          <text class="section-title">{{home.servicesTitle}}</text>
+          <text class="section-desc">{{home.servicesDesc}}</text>
+        </view>
+        <view class="service-list">
+          <view class="service-row" wx:for="{{services}}" wx:key="id" data-id="{{item.id}}" bindtap="openService">
+            <text class="service-row-index">0{{index + 1}}</text>
+            <view class="service-row-copy">
+              <text class="service-row-name">{{item.name}}</text>
+              <text class="service-row-desc">{{item.desc}}</text>
+            </view>
+            <text class="service-row-arrow">→</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="section soft" wx:if="{{industry}}">
+      <view class="container">
+        <view class="section-head">
+          <text class="section-title">{{home.industriesTitle}}</text>
+          <text class="section-desc">{{home.industriesDesc}}</text>
+        </view>
+        <view class="industry-tabs">
+          <view
+            wx:for="{{home.industries}}"
+            wx:key="name"
+            class="industry-tab {{activeIndustry === index ? 'active' : ''}}"
+            data-index="{{index}}"
+            bindtap="selectIndustry"
+          >{{item.name}}</view>
+        </view>
+        <view class="industry-panel">
+          <text class="industry-panel-title">{{industry.title}}</text>
+          <text class="industry-panel-desc">{{industry.desc}}</text>
+          <view class="tag-row">
+            <text class="tag" wx:for="{{industry.tagList}}" wx:key="*this">{{item}}</text>
+          </view>
+          <view class="text-link" bindtap="openInquiry" data-intent="{{industry.name}}方案咨询">交流场景需求 →</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="section surface" wx:if="{{partners.length}}">
+      <view class="container">
+        <view class="section-head">
+          <text class="eyebrow"><view class="eyebrow-dot"></view>{{global.partnersNav}}</text>
+          <text class="section-title">多一种连接，多一份可能</text>
+          <text class="section-desc">面向不同类型的合作伙伴，共同探索适合的合作方式。</text>
+        </view>
+        <view class="partner-grid">
+          <view class="partner-card" wx:for="{{partners}}" wx:key="id">
+            <text class="partner-name">{{item.name}}</text>
+            <text class="partner-desc">{{item.description}}</text>
+            <text class="partner-meta">{{item.contactInfo}}</text>
+          </view>
+        </view>
+        <view class="text-link" bindtap="openPartners">查看合作方式 <text class="text-link-arrow">→</text></view>
+      </view>
+    </view>
+
+    <view class="cta">
+      <text class="cta-title">{{global.ctaTitle}}</text>
+      <text class="cta-desc">{{global.ctaDesc}}</text>
+      <view class="cta-actions">
+        <button class="btn btn-primary" bindtap="openInquiry" data-intent="方案咨询">{{global.ctaButton}} →</button>
+      </view>
+    </view>
+
+    <site-footer content="{{content}}" />
+    <consult-fab intent="业务咨询" />
+  </block>
+</view>

@@ -1,0 +1,76 @@
+.inquiry-contact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22rpx;
+  padding: 24rpx 26rpx;
+  border-radius: 10rpx;
+  background: #e9f8f6;
+}
+
+.inquiry-contact-label {
+  display: block;
+  color: #6f8b92;
+  font-size: 20rpx;
+}
+
+.inquiry-contact-phone {
+  display: block;
+  margin-top: 4rpx;
+  color: #007f79;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.picker-arrow {
+  float: right;
+  color: #7f949b;
+}
+
+.submit-button {
+  margin-top: 6rpx;
+}
+
+.form-note {
+  display: block;
+  margin-top: 16rpx;
+}
+
+.success-wrap {
+  padding: 90rpx 32rpx 60rpx;
+  text-align: center;
+}
+
+.success-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 112rpx;
+  height: 112rpx;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: #e1f6f0;
+  color: #00a88f;
+  font-size: 58rpx;
+}
+
+.success-title {
+  display: block;
+  margin-top: 26rpx;
+  color: #17323d;
+  font-size: 40rpx;
+  font-weight: 600;
+}
+
+.success-desc {
+  display: block;
+  margin: 14rpx auto 0;
+  max-width: 580rpx;
+  color: #74858c;
+  font-size: 23rpx;
+  line-height: 1.85;
+}
+
+.success-home {
+  margin-top: 36rpx;
+}

@@ -1,0 +1,919 @@
+{
+  "global": {
+    "label": "品牌与页脚",
+    "adminVisible": false,
+    "description": "品牌名称、Logo、页脚和全站通用文案；保存后影响所有页面。",
+    "preview": "/",
+    "sections": [
+      {
+        "title": "品牌信息",
+        "fields": ["name", "englishName", "logo"]
+      },
+      {
+        "title": "全站通用文案",
+        "fields": [
+          "footerSlogan",
+          "footerNote",
+          "footerDisclaimer",
+          "ctaTitle",
+          "ctaDesc",
+          "ctaButton",
+          "productDisclaimer",
+          "detailDisclaimer",
+          "brandsTitle",
+          "certificatesTitle",
+          "recommendTitle"
+        ]
+      },
+      {
+        "title": "导航名称",
+        "fields": ["productsNav", "servicesNav", "partnersNav", "aboutNav", "contactNav"]
+      }
+    ],
+    "fields": [
+      {
+        "key": "name",
+        "label": "企业名称",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "englishName",
+        "label": "企业英文名称",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "logo",
+        "label": "企业标志",
+        "type": "image",
+        "required": false
+      },
+      {
+        "key": "footerSlogan",
+        "label": "页脚品牌介绍",
+        "type": "textarea",
+        "required": false
+      },
+      {
+        "key": "footerNote",
+        "label": "页脚业务范围",
+        "type": "text",
+        "required": false,
+        "hint": "历史字段，当前页脚使用「页脚品牌介绍」和「页脚说明」；保留以便后续版式调整。"
+      },
+      {
+        "key": "footerDisclaimer",
+        "label": "页脚说明",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "ctaTitle",
+        "label": "通用咨询标题",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "ctaDesc",
+        "label": "通用咨询介绍",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "ctaButton",
+        "label": "通用咨询按钮",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "productDisclaimer",
+        "label": "产品展示说明",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "detailDisclaimer",
+        "label": "产品详情说明",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "brandsTitle",
+        "label": "品牌展示标题",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "certificatesTitle",
+        "label": "证书展示标题",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "recommendTitle",
+        "label": "推荐产品标题",
+        "type": "text",
+        "required": false,
+        "hint": "历史字段，当前官网不单独展示推荐产品标题。"
+      },
+      {
+        "key": "productsNav",
+        "label": "产品栏目名称",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "servicesNav",
+        "label": "服务栏目名称",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "partnersNav",
+        "label": "合作栏目名称",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "aboutNav",
+        "label": "公司栏目名称",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "contactNav",
+        "label": "联系栏目名称",
+        "type": "text",
+        "required": false
+      }
+    ]
+  },
+  "home": {
+    "label": "首页内容",
+    "adminVisible": false,
+    "description": "首页首屏、业务入口、产品与服务区、行业场景。",
+    "preview": "/",
+    "sections": [
+      {
+        "title": "首屏",
+        "fields": ["heroEyebrow", "heroTitle", "heroDesc", "heroImage", "heroButton", "heroConsult", "heroNote"]
+      },
+      {
+        "title": "首页业务入口",
+        "fields": ["capabilities"]
+      },
+      {
+        "title": "产品区",
+        "fields": ["productsTitle", "productsDesc"]
+      },
+      {
+        "title": "服务区",
+        "fields": ["servicesVisualTitle", "servicesVisualDesc", "servicesTitle", "servicesDesc"]
+      },
+      {
+        "title": "行业场景",
+        "fields": ["industriesTitle", "industriesDesc", "industries"]
+      }
+    ],
+    "fields": [
+      {
+        "key": "heroEyebrow",
+        "label": "首页眉题",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "heroTitle",
+        "label": "首页主标题",
+        "type": "textarea",
+        "required": true
+      },
+      {
+        "key": "heroDesc",
+        "label": "首页介绍",
+        "type": "textarea",
+        "required": false
+      },
+      {
+        "key": "heroImage",
+        "label": "首页背景图",
+        "type": "image",
+        "required": false
+      },
+      {
+        "key": "heroButton",
+        "label": "产品入口按钮",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "heroConsult",
+        "label": "咨询入口按钮",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "heroNote",
+        "label": "首页业务简述",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "productsTitle",
+        "label": "产品区标题",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "productsDesc",
+        "label": "产品区介绍",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "servicesVisualTitle",
+        "label": "服务配图标题",
+        "type": "textarea",
+        "required": false
+      },
+      {
+        "key": "servicesVisualDesc",
+        "label": "服务配图介绍",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "servicesTitle",
+        "label": "服务区标题",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "servicesDesc",
+        "label": "服务区介绍",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "industriesTitle",
+        "label": "场景区标题",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "industriesDesc",
+        "label": "场景区介绍",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "capabilities",
+        "label": "首页业务入口",
+        "type": "list",
+        "hint": "首页四个业务入口，同时用于关于页「核心业务」卡片。修改入口标识时请同步调整对应的站内链接。",
+        "fields": [
+          {
+            "key": "title",
+            "label": "入口名称",
+            "type": "text",
+            "required": false
+          },
+          {
+            "key": "desc",
+            "label": "入口介绍",
+            "type": "text",
+            "required": false
+          },
+          {
+            "key": "icon",
+            "label": "图标名称",
+            "type": "text",
+            "required": false
+          },
+          {
+            "key": "link",
+            "label": "跳转地址",
+            "type": "link",
+            "required": false
+          }
+        ]
+      },
+      {
+        "key": "industries",
+        "label": "行业应用",
+        "type": "list",
+        "fields": [
+          {
+            "key": "name",
+            "label": "行业名称",
+            "type": "text",
+            "required": false
+          },
+          {
+            "key": "title",
+            "label": "场景标题",
+            "type": "text",
+            "required": false
+          },
+          {
+            "key": "desc",
+            "label": "场景介绍",
+            "type": "textarea",
+            "required": false
+          },
+          {
+            "key": "tags",
+            "label": "关键词（以 / 分隔）",
+            "type": "text",
+            "required": false
+          },
+          {
+            "key": "icon",
+            "label": "图标名称",
+            "type": "text",
+            "required": false
+          }
+        ]
+      }
+    ]
+  },
+  "products": {
+    "label": "业务方向与线上平台",
+    "description": "维护业务方向及细分分类，并填写淘宝、抖音线上平台入口。页面展示文案由项目统一维护。",
+    "adminFields": ["solutionGroups", "taobaoUrl", "douyinUrl"],
+    "preview": "/#/products",
+    "sections": [
+      {
+        "title": "页面首屏",
+        "fields": ["heroTitle", "heroDesc"]
+      },
+      {
+        "title": "业务方向",
+        "fields": ["solutionsTitle", "solutionsDesc", "solutionGroups"]
+      },
+      {
+        "title": "线上平台",
+        "fields": ["taobaoUrl", "douyinUrl"]
+      },
+      {
+        "title": "交付流程",
+        "fields": ["deliveryTitle", "disclaimer", "steps"]
+      }
+    ],
+    "fields": [
+      {
+        "key": "heroTitle",
+        "label": "页面标题",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "heroDesc",
+        "label": "页面介绍",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "solutionsTitle",
+        "label": "业务方向标题",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "solutionsDesc",
+        "label": "业务方向介绍",
+        "type": "textarea",
+        "required": false,
+        "hint": "历史字段，当前官网业务方向列表只显示标题；保留以便后续版式调整。"
+      },
+      {
+        "key": "taobaoUrl",
+        "label": "淘宝链接",
+        "type": "link",
+        "required": false
+      },
+      {
+        "key": "douyinUrl",
+        "label": "抖音链接",
+        "type": "link",
+        "required": false
+      },
+      {
+        "key": "deliveryTitle",
+        "label": "交付区标题",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "disclaimer",
+        "label": "产品说明",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "steps",
+        "label": "交付步骤",
+        "type": "list",
+        "hint": "官网产品页底部按顺序展示交付步骤，建议保持 4 项。",
+        "fields": [
+          {
+            "key": "title",
+            "label": "步骤名称",
+            "type": "text",
+            "required": false
+          },
+          {
+            "key": "desc",
+            "label": "步骤说明",
+            "type": "textarea",
+            "required": false
+          }
+        ]
+      },
+      {
+        "key": "solutionGroups",
+        "label": "业务方向",
+        "type": "list",
+        "hint": "官网按业务方向切换展示。入口标识用于链接参数 solution=…，修改后请同步首页业务入口链接。",
+        "fields": [
+          {
+            "key": "key",
+            "label": "入口标识（英文）",
+            "type": "text",
+            "required": true,
+            "hint": "仅使用英文和短横线，例如 servers、deployment、inference、cluster。"
+          },
+          {
+            "key": "title",
+            "label": "业务方向名称",
+            "type": "text",
+            "required": true
+          },
+          {
+            "key": "desc",
+            "label": "业务方向介绍",
+            "type": "textarea",
+            "required": false
+          },
+          {
+            "key": "icon",
+            "label": "图标名称",
+            "type": "text",
+            "required": false
+          },
+          {
+            "key": "groups",
+            "label": "细分分类",
+            "type": "list",
+            "fields": [
+              {
+                "key": "title",
+                "label": "分类名称",
+                "type": "text",
+                "required": true
+              },
+              {
+                "key": "items",
+                "label": "内容项目（每行一项）",
+                "type": "textarea",
+                "required": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "services": {
+    "label": "服务页面",
+    "adminVisible": false,
+    "description": "技术服务页的页面标题和服务承诺。",
+    "preview": "/#/services",
+    "sections": [
+      {
+        "title": "页面首屏",
+        "fields": ["heroTitle", "heroDesc"]
+      },
+      {
+        "title": "服务承诺",
+        "fields": ["assuranceTitle", "assuranceDesc"]
+      }
+    ],
+    "fields": [
+      {
+        "key": "heroTitle",
+        "label": "页面标题",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "heroDesc",
+        "label": "页面介绍",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "assuranceTitle",
+        "label": "服务承诺标题",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "assuranceDesc",
+        "label": "服务承诺介绍",
+        "type": "textarea",
+        "required": false
+      }
+    ]
+  },
+  "partners": {
+    "label": "合作页面",
+    "adminVisible": false,
+    "description": "招商合作页的页面标题、合作方向和邀请内容。",
+    "preview": "/#/partners",
+    "sections": [
+      {
+        "title": "页面首屏",
+        "fields": ["heroTitle", "heroDesc"]
+      },
+      {
+        "title": "合作方向",
+        "fields": ["sectionTitle", "sectionDesc"]
+      },
+      {
+        "title": "合作邀请",
+        "fields": ["inviteTitle", "inviteDesc", "inviteButton", "disclaimer"]
+      }
+    ],
+    "fields": [
+      {
+        "key": "heroTitle",
+        "label": "页面标题",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "heroDesc",
+        "label": "页面介绍",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "sectionTitle",
+        "label": "合作区标题",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "sectionDesc",
+        "label": "合作区介绍",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "inviteTitle",
+        "label": "邀请标题",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "inviteDesc",
+        "label": "邀请介绍",
+        "type": "textarea",
+        "required": false
+      },
+      {
+        "key": "inviteButton",
+        "label": "合作按钮",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "disclaimer",
+        "label": "合作说明",
+        "type": "text",
+        "required": false
+      }
+    ]
+  },
+  "about": {
+    "label": "公司介绍",
+    "adminVisible": false,
+    "description": "关于我们页；项目动态、公司简介、核心业务、服务方式和工作理念。",
+    "preview": "/#/about",
+    "sections": [
+      {
+        "title": "页面首屏",
+        "fields": ["heroTitle", "heroDesc"]
+      },
+      {
+        "title": "项目动态",
+        "fields": ["milestonesTitle", "milestonesDesc", "milestones"]
+      },
+      {
+        "title": "公司简介",
+        "fields": ["introTitle", "introLead", "introBody", "introImage", "visualTitle", "visualNote"]
+      },
+      {
+        "title": "核心理念",
+        "fields": ["principlesTitle", "principlesDesc", "principles"]
+      },
+      {
+        "title": "服务方式",
+        "fields": ["supportTitle", "supportDesc", "supportAreas"]
+      },
+      {
+        "title": "兼容字段（当前官网不展示）",
+        "desc": "以下内容为历史版本保留，当前官网版式不会读取；可暂时保留，后续需要时再恢复展示。",
+        "fields": ["businessTitle", "businessDesc", "businessAreas", "industryTitle", "industryDesc", "industryNames"]
+      }
+    ],
+    "fields": [
+      {
+        "key": "heroTitle",
+        "label": "页面标题",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "heroDesc",
+        "label": "页面介绍",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "introTitle",
+        "label": "公司简介标题",
+        "type": "textarea",
+        "required": false
+      },
+      {
+        "key": "introLead",
+        "label": "公司简介导语",
+        "type": "textarea",
+        "required": false
+      },
+      {
+        "key": "introBody",
+        "label": "公司简介正文",
+        "type": "textarea",
+        "required": false
+      },
+      {
+        "key": "introImage",
+        "label": "公司简介配图",
+        "type": "image",
+        "required": false
+      },
+      {
+        "key": "visualTitle",
+        "label": "配图标题",
+        "type": "textarea",
+        "required": false
+      },
+      {
+        "key": "visualNote",
+        "label": "配图说明",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "principlesTitle",
+        "label": "理念区标题",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "principlesDesc",
+        "label": "理念区介绍",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "businessTitle",
+        "label": "业务区标题",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "businessDesc",
+        "label": "业务区介绍",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "supportTitle",
+        "label": "服务体系标题",
+        "type": "textarea",
+        "required": false
+      },
+      {
+        "key": "supportDesc",
+        "label": "服务体系介绍",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "industryTitle",
+        "label": "行业区标题",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "industryDesc",
+        "label": "行业区介绍",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "industryNames",
+        "label": "应用行业（每行一项）",
+        "type": "textarea",
+        "required": false
+      },
+      {
+        "key": "principles",
+        "label": "企业理念",
+        "type": "list",
+        "hint": "关于页「我们的工作方式」展示全部理念。",
+        "fields": [
+          {
+            "key": "title",
+            "label": "理念名称",
+            "type": "text",
+            "required": false
+          },
+          {
+            "key": "desc",
+            "label": "理念说明",
+            "type": "textarea",
+            "required": false
+          }
+        ]
+      },
+      {
+        "key": "businessAreas",
+        "label": "公司业务",
+        "type": "list",
+        "hint": "当前官网不再单独展示这组业务卡片；关于页核心业务使用首页「业务入口」，这里仅保留历史内容。",
+        "fields": [
+          {
+            "key": "title",
+            "label": "业务名称",
+            "type": "text",
+            "required": false
+          },
+          {
+            "key": "desc",
+            "label": "业务介绍",
+            "type": "textarea",
+            "required": false
+          },
+          {
+            "key": "icon",
+            "label": "图标名称",
+            "type": "text",
+            "required": false
+          },
+          {
+            "key": "link",
+            "label": "业务链接",
+            "type": "link",
+            "required": false
+          },
+          {
+            "key": "button",
+            "label": "按钮文字",
+            "type": "text",
+            "required": false
+          }
+        ]
+      },
+      {
+        "key": "supportAreas",
+        "label": "服务体系",
+        "type": "list",
+        "hint": "关于页「服务方式」最多展示前 4 项，建议保持 4 项。",
+        "fields": [
+          {
+            "key": "label",
+            "label": "体系名称",
+            "type": "text",
+            "required": false
+          },
+          {
+            "key": "title",
+            "label": "体系标题",
+            "type": "text",
+            "required": false
+          },
+          {
+            "key": "desc",
+            "label": "体系介绍",
+            "type": "textarea",
+            "required": false
+          }
+        ]
+      },
+      {
+        "key": "milestonesTitle",
+        "label": "项目动态标题",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "milestonesDesc",
+        "label": "项目动态介绍",
+        "type": "textarea",
+        "required": false
+      },
+      {
+        "key": "milestones",
+        "label": "项目动态",
+        "type": "list",
+        "hint": "关于页顶部展示最近 5 条，按日期倒序；第一条作为最新交付大图卡片。",
+        "fields": [
+          {
+            "key": "date",
+            "label": "时间",
+            "type": "text",
+            "required": false
+          },
+          {
+            "key": "tag",
+            "label": "动态类型",
+            "type": "text",
+            "required": false
+          },
+          {
+            "key": "title",
+            "label": "动态标题",
+            "type": "text",
+            "required": true
+          },
+          {
+            "key": "desc",
+            "label": "动态内容",
+            "type": "textarea",
+            "required": false
+          }
+        ]
+      }
+    ]
+  },
+  "contact": {
+    "label": "联系页面",
+    "adminVisible": false,
+    "description": "联系我们页的页面标题、联系区文案和咨询按钮。",
+    "preview": "/#/contact",
+    "sections": [
+      {
+        "title": "页面首屏",
+        "fields": ["heroTitle", "heroDesc"]
+      },
+      {
+        "title": "联系信息",
+        "fields": ["title", "desc", "note", "button"]
+      }
+    ],
+    "fields": [
+      {
+        "key": "heroTitle",
+        "label": "页面标题",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "heroDesc",
+        "label": "页面介绍",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "title",
+        "label": "联系区标题",
+        "type": "textarea",
+        "required": true
+      },
+      {
+        "key": "desc",
+        "label": "联系区介绍",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "note",
+        "label": "联系区补充说明",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "button",
+        "label": "咨询按钮",
+        "type": "text",
+        "required": false
+      }
+    ]
+  }
+}

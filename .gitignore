@@ -31,3 +31,27 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Website runtime state; never commit databases or logs.
+data/
+.runtime/
+test-results/
+website-test.log
+website-build.log
+*.log
+*.pid
+*.mv.db
+*.trace.db
+*.sql.gz
+backups/
+.env
+.env.*
+!.env.example
+*.env
+!*.env.example
+
+__pycache__/
+*.py[cod]
+
+# WeChat DevTools local project settings
+miniprogram/project.private.config.json

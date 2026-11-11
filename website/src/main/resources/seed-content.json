@@ -1,0 +1,118 @@
+{
+  "products": [
+    {
+      "id": "general",
+      "category": "general",
+      "name": "通用服务器整机",
+      "en": "GENERAL PURPOSE SERVER",
+      "tag": "稳定承载 · 灵活配置",
+      "icon": "server",
+      "desc": "面向企业核心业务，为计算、存储与虚拟化提供可靠的硬件基础。",
+      "features": [
+        "计算与存储资源按需配置",
+        "支持业务系统与虚拟化部署",
+        "整机选型、集成与交付"
+      ],
+      "uses": "企业业务系统 / 数据存储 / 虚拟化",
+      "kind": "rack"
+    },
+    {
+      "id": "gpu",
+      "category": "gpu",
+      "name": "GPU 服务器整机",
+      "en": "GPU COMPUTING SERVER",
+      "tag": "加速计算 · 面向 AI",
+      "icon": "chip",
+      "desc": "围绕模型训练与推理场景，协同规划 GPU、网络与存储资源。",
+      "features": [
+        "按模型与负载规划 GPU 配置",
+        "计算、网络与存储协同选型",
+        "部署验证与运行环境适配"
+      ],
+      "uses": "模型训练 / AI 推理 / 科学计算",
+      "kind": "gpu"
+    },
+    {
+      "id": "domestic",
+      "category": "domestic",
+      "name": "国产卡服务器整机",
+      "en": "DOMESTIC AI COMPUTING",
+      "tag": "国产算力 · 生态适配",
+      "icon": "layers",
+      "desc": "从国产加速卡整机选型到软件栈适配，构建契合业务的国产算力方案。",
+      "features": [
+        "国产加速卡与整机方案选型",
+        "驱动、框架与模型兼容性验证",
+        "按应用场景进行部署评估"
+      ],
+      "uses": "国产化建设 / 私有化部署 / 行业应用",
+      "kind": "domestic"
+    }
+  ],
+  "services": [
+    {
+      "id": "inference",
+      "icon": "activity",
+      "name": "模型推理优化",
+      "en": "INFERENCE OPTIMIZATION",
+      "desc": "让模型从“能运行”走向“更好用”。结合业务目标，评估延迟、吞吐与资源使用。",
+      "items": [
+        "模型部署与运行环境适配",
+        "推理性能评估与瓶颈分析",
+        "量化、批处理及并发策略评估",
+        "优化前后基准测试与交付建议"
+      ],
+      "note": "优化效果依模型、硬件、精度要求和工作负载实测确认。"
+    },
+    {
+      "id": "gpu-care",
+      "icon": "shield",
+      "name": "GPU 专项维保",
+      "en": "GPU SPECIALIST CARE",
+      "desc": "关注 GPU 健康状态与故障风险，让关键算力设备保持良好运行状态。",
+      "items": [
+        "GPU 健康检查与温度监控分析",
+        "ECC 统计、利用率与日志分析",
+        "GPU 故障诊断及维修方案评估",
+        "备机备件与专项维护方案"
+      ],
+      "note": "维修范围、备件与响应安排根据设备检测结果及合同约定。"
+    },
+    {
+      "id": "cluster",
+      "icon": "network",
+      "name": "算力集群运维",
+      "en": "CLUSTER OPERATIONS",
+      "desc": "覆盖集群的部署、升级、迁移和扩容，关注算力系统的持续可用。",
+      "items": [
+        "算力集群部署、升级与扩容",
+        "集群迁移与运行环境维护",
+        "驱动、微码与补丁管理",
+        "AI 平台监控及资源调优"
+      ],
+      "note": "SLA 级别与服务边界经项目评估后约定。"
+    },
+    {
+      "id": "maintenance",
+      "icon": "tool",
+      "name": "基础维保服务",
+      "en": "INFRASTRUCTURE SUPPORT",
+      "desc": "从硬件到软件，从日常维护到升级迁移，为 IT 基础设施提供持续支持。",
+      "items": [
+        "软硬件支持与维护",
+        "设备升级扩容、搬迁与租赁评估",
+        "数据迁移与人员支持",
+        "技术培训及技术咨询"
+      ],
+      "note": "服务内容可按设备情况与业务需求组合。"
+    }
+  ],
+  "settings": {
+    "phone": "18458055296",
+    "email": "",
+    "address": "",
+    "wecomName": "",
+    "wecomUrl": "",
+    "wecomQr": ""
+  }
+}

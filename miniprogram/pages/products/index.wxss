@@ -1,0 +1,166 @@
+.offering-head {
+  margin: 22rpx 0 26rpx;
+}
+
+.offering-title {
+  display: block;
+  color: #102731;
+  font-size: 38rpx;
+  font-weight: 600;
+}
+
+.offering-desc {
+  display: block;
+  margin-top: 10rpx;
+  color: #74858c;
+  font-size: 24rpx;
+  line-height: 1.8;
+}
+
+.group-list {
+  margin-top: 10rpx;
+}
+
+.group-card {
+  margin-bottom: 20rpx;
+  padding: 26rpx;
+  border: 1rpx solid #e1eaec;
+  border-radius: 10rpx;
+  background: #f8fbfb;
+}
+
+.group-title {
+  display: block;
+  color: #24434f;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.model-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 14rpx;
+}
+
+.model-chip {
+  margin: 0 12rpx 12rpx 0;
+  padding: 10rpx 18rpx;
+  border: 1rpx solid #d6e5e7;
+  border-radius: 30rpx;
+  background: #ffffff;
+  color: #4c6872;
+  font-size: 22rpx;
+}
+
+.platform-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 26rpx 0 16rpx;
+  padding-top: 22rpx;
+  border-top: 1rpx solid #e6edef;
+}
+
+.platform-label {
+  margin-right: 18rpx;
+  color: #8a9ba1;
+  font-size: 21rpx;
+}
+
+.platform-link {
+  margin-right: 20rpx;
+  color: #008f88;
+  font-size: 22rpx;
+  font-weight: 600;
+}
+
+.delivery-section {
+  padding: 56rpx 0;
+  background: #092330;
+  color: #ffffff;
+}
+
+.delivery-title {
+  display: block;
+  color: #ffffff;
+  font-size: 38rpx;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.delivery-desc {
+  display: block;
+  margin-top: 12rpx;
+  color: #8aa8af;
+  font-size: 23rpx;
+  line-height: 1.8;
+}
+
+.step-grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 26rpx;
+}
+
+.step-item {
+  width: 50%;
+  padding: 18rpx 20rpx 18rpx 0;
+}
+
+.step-index {
+  display: block;
+  color: #54ded4;
+  font-size: 20rpx;
+  letter-spacing: 1rpx;
+}
+
+.step-title {
+  display: block;
+  margin-top: 8rpx;
+  color: #e9f5f4;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.step-desc {
+  display: block;
+  margin-top: 6rpx;
+  color: #8aa8af;
+  font-size: 21rpx;
+  line-height: 1.7;
+}
+
+.brand-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.brand-card {
+  width: 100%;
+  margin-bottom: 18rpx;
+  padding: 24rpx;
+  border: 1rpx solid #e1eaec;
+  border-radius: 10rpx;
+  background: #ffffff;
+}
+
+.brand-logo {
+  width: 150rpx;
+  height: 80rpx;
+  margin-bottom: 12rpx;
+}
+
+.brand-name {
+  display: block;
+  color: #24434f;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.brand-desc {
+  display: block;
+  margin-top: 8rpx;
+  color: #7b8d93;
+  font-size: 22rpx;
+  line-height: 1.7;
+}

@@ -7,7 +7,7 @@
     <select id="findAllProducts" resultType="com.cows.entity.Product">
         SELECT * FROM Products WHERE isDeleted = 0
     </select>
- <insert id="insertProduct" parameterType="com.cows.entity.Product">
+ <insert id="insertProduct" parameterType="com.cows.entity.Product" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO Products (name, coverImage, detailImages, description, salePrice, costPrice, stockQuantity, brand, categoryId, isAvailable, isDeleted)
         VALUES (#{name}, #{coverImage}, #{detailImages, typeHandler=com.cows.handler.StringArrayTypeHandler}, #{description}, #{salePrice}, #{costPrice}, #{stockQuantity}, #{brand}, #{categoryId}, 1, 0)
     </insert>

@@ -3,31 +3,28 @@
 <mapper namespace="com.cows.mapper.UserMapper">
 <!--    使用了 resultType="User"，这告诉 MyBatis 结果应该映射到 'User' 类，注意：这边类路径写死 或在mybatis-config配置-->
      <select id="findByWechatOpenId" resultType="com.cows.entity.User">
-        SELECT * FROM User WHERE wechat_openid = #{wechatOpenId}
+        SELECT * FROM `User` WHERE wechat_openid = #{wechatOpenId}
     </select>
     <select id="findUserById" parameterType="int" resultType="com.cows.entity.User">
-        SELECT * FROM User WHERE id = #{id} FOR UPDATE
+        SELECT * FROM `User` WHERE id = #{id}
     </select>
     <select id="getAllUsers" resultType="com.cows.entity.User">
-        SELECT * FROM User ORDER BY ${sortField} LIMIT #{limit} OFFSET #{offset}
+        SELECT * FROM `User` ORDER BY ${sortField} LIMIT #{limit} OFFSET #{offset}
     </select>
     <select id="findAllUsers" resultType="com.cows.entity.User">
-        SELECT * FROM User FOR UPDATE
+        SELECT * FROM `User`
     </select>
     <insert id="insertUser" parameterType="com.cows.entity.User" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO User (userName, password, wechat_openid, isEnable, isDeleted) VALUES (#{userName}, #{password}, #{wechatOpenId}, 1, 0)
+        INSERT INTO `User` (userName, password, wechat_openid, isEnable, isDeleted) VALUES (#{userName}, #{password}, #{wechatOpenId}, #{isEnable}, 0)
     </insert>
     <update id="updateUser" parameterType="com.cows.entity.User">
-        UPDATE User SET userName = #{userName}, password = #{password}, isEnable = #{isEnable}, isDeleted = #{isDeleted} WHERE id = #{id}
-        <selectKey resultType="int" order="AFTER" keyProperty="updates">
-            SELECT ROW_COUNT()
-        </selectKey>
+        UPDATE `User` SET userName = #{userName}, password = #{password}, isEnable = #{isEnable}, isDeleted = #{isDeleted} WHERE id = #{id}
     </update>
 <!--    <update id="updateUser" parameterType="entity.com.cows.User">-->
-<!--        UPDATE User SET username = #{userName}, password = #{password} WHERE id = #{id}-->
+<!--        UPDATE `User` SET username = #{userName}, password = #{password} WHERE id = #{id}-->
 <!--    </update> -->
     <update id="deleteUser" parameterType="int">
-        UPDATE User SET isDeleted = 1 WHERE id = #{id}
+        UPDATE `User` SET isDeleted = 1 WHERE id = #{id}
     </update>
 
     <!-- 其他SQL语句... -->

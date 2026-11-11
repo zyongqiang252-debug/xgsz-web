@@ -1,0 +1,95 @@
+<view class="page-shell">
+  <view wx:if="{{loading}}" class="loading-state">
+    <view class="loading-dot"></view>
+    <view class="loading-dot"></view>
+    <view class="loading-dot"></view>
+    <text class="loading-text">正在加载联系方式…</text>
+  </view>
+
+  <view wx:elif="{{error}}" class="error-state">
+    <text class="error-title">暂时无法加载联系方式</text>
+    <text class="error-desc">{{error}}</text>
+    <button class="btn btn-primary" bindtap="retry">重新加载</button>
+  </view>
+
+  <block wx:else>
+    <view class="subhero">
+      <view class="subhero-orbit"></view>
+      <view class="subhero-orbit-small"></view>
+      <view class="container subhero-inner">
+        <text class="crumb">首页 / {{global.contactNav}}</text>
+        <text class="subhero-title">{{page.heroTitle}}</text>
+        <text class="subhero-desc">{{page.heroDesc}}</text>
+      </view>
+    </view>
+
+    <view class="section surface">
+      <view class="container">
+        <text class="contact-kicker">{{global.name}}</text>
+        <text class="contact-title preline">{{page.title}}</text>
+        <text class="contact-desc">{{page.desc}}</text>
+        <text class="contact-note">{{page.note}}</text>
+        <button class="btn btn-primary contact-primary" bindtap="openInquiry">{{page.button}} →</button>
+      </view>
+    </view>
+
+    <view class="section soft">
+      <view class="container">
+        <view class="contact-card">
+          <view class="contact-head">
+            <text class="contact-head-title">直接联系</text>
+            <text class="contact-head-desc">工作时间内优先通过电话或企业微信沟通。</text>
+          </view>
+
+          <view class="contact-row" bindtap="callPhone">
+            <view class="contact-row-icon">电</view>
+            <view class="contact-row-copy">
+              <text class="contact-row-label">咨询电话</text>
+              <text class="contact-row-value" wx:if="{{settings.phone}}">{{settings.phone}}</text>
+              <text class="contact-row-value muted" wx:else>暂未公布</text>
+            </view>
+            <text class="contact-row-action" wx:if="{{settings.phone}}">拨打</text>
+          </view>
+
+          <view class="contact-row">
+            <view class="contact-row-icon">企</view>
+            <view class="contact-row-copy">
+              <text class="contact-row-label">企业微信</text>
+              <text class="contact-row-value" wx:if="{{settings.wecomName}}">{{settings.wecomName}}</text>
+              <text class="contact-row-value muted" wx:elif="{{wecomEmpty}}">暂未公布</text>
+              <text class="contact-row-hint" wx:if="{{settings.wecomQr}}">扫码添加企业微信</text>
+            </view>
+            <text class="contact-row-action" wx:if="{{settings.wecomUrl}}" bindtap="copyWecom">复制链接</text>
+          </view>
+          <image class="wecom-qr" wx:if="{{settings.wecomQr}}" src="{{settings.wecomQr}}" mode="aspectFit" />
+
+          <view class="contact-row" bindtap="copyEmail" wx:if="{{settings.email}}">
+            <view class="contact-row-icon">邮</view>
+            <view class="contact-row-copy">
+              <text class="contact-row-label">联系邮箱</text>
+              <text class="contact-row-value">{{settings.email}}</text>
+            </view>
+            <text class="contact-row-action">复制</text>
+          </view>
+
+          <view class="contact-row" bindtap="copyAddress" wx:if="{{settings.address}}">
+            <view class="contact-row-icon">址</view>
+            <view class="contact-row-copy">
+              <text class="contact-row-label">联系地址</text>
+              <text class="contact-row-value">{{settings.address}}</text>
+            </view>
+            <text class="contact-row-action">复制</text>
+          </view>
+        </view>
+
+        <view class="contact-tip">
+          <text class="contact-tip-title">不方便电话？</text>
+          <text class="contact-tip-desc">留下称呼、公司和需求，我们会通过您留下的电话或微信进一步联系。</text>
+          <button class="btn btn-dark btn-small" bindtap="openInquiry">填写业务需求 →</button>
+        </view>
+      </view>
+    </view>
+
+    <site-footer content="{{content}}" />
+  </block>
+</view>

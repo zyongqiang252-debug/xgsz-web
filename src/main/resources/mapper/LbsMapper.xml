@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cows.mapper.LbsMapper">
+    <select id="findAllLocations" resultType="com.cows.entity.LbsInfo">
+        SELECT id,user_id AS userId,latitude,longitude,address,created_at AS createdAt,updated_at AS updatedAt FROM user_location ORDER BY id DESC
+    </select>
+    <select id="findLocationById" resultType="com.cows.entity.LbsInfo">
+        SELECT id,user_id AS userId,latitude,longitude,address,created_at AS createdAt,updated_at AS updatedAt FROM user_location WHERE id=#{id}
+    </select>
+    <update id="updateLocation" parameterType="com.cows.entity.LbsInfo">
+        UPDATE user_location SET user_id=#{userId},latitude=#{latitude},longitude=#{longitude},address=#{address},updated_at=CURRENT_TIMESTAMP WHERE id=#{id}
+    </update>
+    <delete id="deleteLocation">DELETE FROM user_location WHERE id=#{id}</delete>
 
-    <insert id="insertLbsInfo" parameterType="com.cows.entity.LbsInfo">
+    <insert id="insertLbsInfo" parameterType="com.cows.entity.LbsInfo" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO user_location (user_id, latitude, longitude, address)
         VALUES (#{userId}, #{latitude}, #{longitude}, #{address})
     </insert>

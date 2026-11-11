@@ -1,8 +1,8 @@
 wechat:
-  appid:   # 微信应用ID
-  secret:   # 微信应用密钥
+  appid: ${LEGACY_WECHAT_APP_ID:}
+  secret: ${LEGACY_WECHAT_SECRET:}
   redirect:
-    uri:  https://3z5753f148.vicp.fun/login/wechat/callback # 回调URL
+    uri: ${LEGACY_WECHAT_REDIRECT_URI:https://www.example.com/login/wechat/callback}
 app:
   id: platform
   
@@ -54,7 +54,7 @@ microservice:
 file:
   maxSize: 1024MB
 # 配置文件上传路径
-filePath: /home/lyc/upload/
+filePath: ${LEGACY_UPLOAD_PATH:./uploads/}
 
 
 # 日志配置
@@ -118,9 +118,9 @@ spring:
   
   # 配置Mybatis
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/springBootTest
-    username: root
-    password: 123456
+    url: ${XGSZ_DATABASE_URL}
+    username: ${XGSZ_DATABASE_USER:xgsz_website}
+    password: ${XGSZ_DATABASE_PASSWORD:}
     driver-class-name: com.mysql.cj.jdbc.Driver
   
   #  配置ActiveMQ
@@ -145,7 +145,7 @@ spring:
     # 配置redis的主机地址，需要修改成自己的
     host: 127.0.0.1
     port: 6379   # 默认是6379
-    password: 123456
+    password: ${LEGACY_REDIS_PASSWORD:}
     timeout: 5000
     database: 0 #  数据库索引，Redis默认提供16个数据库，编号从0到15。当你连接到Redis时，你会默认连接到0号数据库。你可以使用SELECT命令来切换到其他的数据库。
     lettuce:

@@ -1,0 +1,80 @@
+<view class="page-shell detail-page">
+  <view wx:if="{{loading}}" class="loading-state">
+    <view class="loading-dot"></view>
+    <view class="loading-dot"></view>
+    <view class="loading-dot"></view>
+    <text class="loading-text">正在加载产品详情…</text>
+  </view>
+
+  <view wx:elif="{{error}}" class="error-state">
+    <text class="error-title">{{error}}</text>
+    <text class="error-desc">可以返回产品列表查看其他方案。</text>
+    <button class="btn btn-primary" bindtap="goProducts">返回产品列表</button>
+  </view>
+
+  <block wx:elif="{{product}}">
+    <view class="detail-cover">
+      <image wx:if="{{product.coverImage}}" class="detail-cover-image" src="{{product.coverImage}}" mode="aspectFill" />
+      <view wx:else class="product-art detail-art">
+        <view class="product-art-unit"></view>
+        <view class="product-art-unit product-art-unit-short"></view>
+        <view class="product-art-unit"></view>
+        <view class="product-art-light"></view>
+      </view>
+      <view class="detail-cover-mask"></view>
+      <view class="detail-cover-copy">
+        <text class="detail-tag">{{product.tag}}</text>
+        <text class="detail-name">{{product.name}}</text>
+        <text class="detail-en">{{product.en}}</text>
+      </view>
+    </view>
+
+    <view class="section surface">
+      <view class="container">
+        <text class="detail-desc">{{product.desc}}</text>
+        <view class="feature-list detail-features" wx:if="{{product.features.length}}">
+          <view class="feature-row" wx:for="{{product.features}}" wx:key="*this">
+            <text class="feature-check">✓</text><text>{{item}}</text>
+          </view>
+        </view>
+        <view class="detail-note">
+          <text class="detail-note-label">适用方向</text>
+          <text class="detail-note-value">{{product.uses}}</text>
+        </view>
+        <view class="detail-note" wx:if="{{product.brand}}">
+          <text class="detail-note-label">品牌 / 配置</text>
+          <text class="detail-note-value">{{product.brand}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="section soft" wx:if="{{product.detailImages.length}}">
+      <view class="container">
+        <text class="section-title">产品细节</text>
+        <image
+          wx:for="{{product.detailImages}}"
+          wx:key="*this"
+          class="detail-image"
+          src="{{item}}"
+          mode="widthFix"
+          data-url="{{item}}"
+          bindtap="previewDetail"
+        />
+      </view>
+    </view>
+
+    <view class="section surface">
+      <view class="container">
+        <text class="tiny">{{global.detailDisclaimer}}</text>
+      </view>
+    </view>
+
+    <view class="detail-bar">
+      <view class="detail-bar-copy">
+        <text class="detail-bar-label">配置与交付</text>
+        <text class="detail-bar-value">按项目需求沟通</text>
+      </view>
+      <button class="btn btn-primary btn-small" bindtap="openInquiry">咨询整机方案 →</button>
+    </view>
+  </block>
+</view>

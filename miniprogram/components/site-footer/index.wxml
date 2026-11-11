@@ -1,0 +1,46 @@
+<view class="site-footer" wx:if="{{content.pages}}">
+  <view class="footer-brand" bindtap="goHome">
+    <image class="footer-logo" src="{{content.pages.global.logo}}" mode="aspectFit" />
+    <text class="footer-name">{{content.pages.global.name}}</text>
+    <text class="footer-en">{{content.pages.global.englishName}}</text>
+  </view>
+  <text class="footer-slogan preline">{{content.pages.global.footerSlogan}}</text>
+
+  <view class="footer-columns">
+    <view class="footer-column">
+      <text class="footer-title">{{content.pages.global.productsNav}}</text>
+      <view class="footer-link" wx:for="{{content.categories}}" wx:key="key" data-key="{{item.key}}" bindtap="openProducts">{{item.name}}</view>
+    </view>
+    <view class="footer-column">
+      <text class="footer-title">{{content.pages.global.servicesNav}}</text>
+      <view class="footer-link" wx:for="{{content.services}}" wx:key="id" data-id="{{item.id}}" bindtap="openServices">{{item.name}}</view>
+      <view class="footer-link" bindtap="openPartners">{{content.pages.global.partnersNav}}</view>
+      <view class="footer-link" bindtap="openAbout">{{content.pages.global.aboutNav}}</view>
+    </view>
+  </view>
+
+  <view class="footer-contact">
+    <view class="footer-contact-row" wx:if="{{content.settings.phone}}" bindtap="callPhone">
+      <text class="footer-contact-label">咨询电话</text>
+      <text class="footer-contact-value">{{content.settings.phone}}</text>
+    </view>
+    <view class="footer-contact-row" wx:if="{{content.settings.email}}" bindtap="copyEmail">
+      <text class="footer-contact-label">联系邮箱</text>
+      <text class="footer-contact-value">{{content.settings.email}}</text>
+    </view>
+    <view class="footer-contact-row" wx:if="{{content.settings.address}}" bindtap="copyAddress">
+      <text class="footer-contact-label">联系地址</text>
+      <text class="footer-contact-value">{{content.settings.address}}</text>
+    </view>
+    <view class="footer-contact-row" wx:if="{{basic.icp}}" data-value="{{basic.icp}}" data-label="备案号" bindtap="copyRecord">
+      <text class="footer-contact-label">备案号</text>
+      <text class="footer-contact-value">{{basic.icp}}</text>
+    </view>
+  </view>
+
+  <view class="footer-bottom">
+    <text>{{copyright}}</text>
+    <text class="footer-bottom-line">{{content.pages.global.footerDisclaimer}}</text>
+    <view class="footer-bottom-link" bindtap="openContact">{{content.pages.global.contactNav}} →</view>
+  </view>
+</view>

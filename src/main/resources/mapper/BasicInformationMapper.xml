@@ -26,7 +26,7 @@
         isEnable = #{isEnable},
         homeTitle = #{homeTitle},
         homeDescription = #{homeDescription}
-    WHERE id = 1
+    WHERE id = #{id}
 </update>
     <update id="deleteBasicInformation" parameterType="long">
         UPDATE BasicInformation SET isDeleted = 1 WHERE id = #{id}

@@ -7,7 +7,7 @@
     <select id="findAllBrands" resultType="com.cows.entity.Brand">
         SELECT * FROM Brands WHERE isDeleted = 0
     </select>
-    <insert id="insertBrand" parameterType="com.cows.entity.Brand">
+    <insert id="insertBrand" parameterType="com.cows.entity.Brand" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO Brands (name, description, logo, isDeleted)
         VALUES (#{name}, #{description}, #{logo}, 0)
     </insert>

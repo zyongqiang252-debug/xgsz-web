@@ -1,0 +1,392 @@
+{
+  "categories": {
+    "label": "产品分类",
+    "entity": "ProductCategory",
+    "service": "productCategoryServiceImpl",
+    "fields": [
+      {
+        "key": "name",
+        "label": "分类名称",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "description",
+        "label": "分类说明",
+        "type": "textarea",
+        "required": false
+      },
+      {
+        "key": "enabled",
+        "label": "启用分类",
+        "type": "checkbox",
+        "required": false
+      }
+    ],
+    "public": true,
+    "list": "getAllProductCategories",
+    "get": "getProductCategoryById",
+    "add": "addProductCategory",
+    "update": "updateProductCategory",
+    "delete": "deleteProductCategory"
+  },
+  "brands": {
+    "label": "品牌管理",
+    "entity": "Brand",
+    "service": "brandServiceImpl",
+    "fields": [
+      {
+        "key": "name",
+        "label": "品牌名称",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "description",
+        "label": "品牌介绍",
+        "type": "textarea",
+        "required": false
+      },
+      {
+        "key": "logo",
+        "label": "品牌标志",
+        "type": "image",
+        "required": false
+      }
+    ],
+    "public": true,
+    "list": "getAllBrands",
+    "get": "getBrandById",
+    "add": "addBrand",
+    "update": "updateBrand",
+    "delete": "deleteBrand"
+  },
+  "certificates": {
+    "label": "授权证书",
+    "entity": "BrandAuthorizationCertificate",
+    "service": "brandAuthorizationCertificateServiceImpl",
+    "fields": [
+      {
+        "key": "name",
+        "label": "证书名称",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "description",
+        "label": "证书说明",
+        "type": "textarea",
+        "required": false
+      },
+      {
+        "key": "imageUrl",
+        "label": "证书图片",
+        "type": "image",
+        "required": false
+      }
+    ],
+    "public": true,
+    "list": "getAllCertificates",
+    "get": "getCertificateById",
+    "add": "addCertificate",
+    "update": "updateCertificate",
+    "delete": "deleteCertificate"
+  },
+  "carousels": {
+    "label": "首页轮播",
+    "entity": "Carousel",
+    "service": "carouselServiceImpl",
+    "fields": [
+      {
+        "key": "title",
+        "label": "轮播标题",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "order",
+        "label": "展示顺序",
+        "type": "number",
+        "required": true
+      },
+      {
+        "key": "imageUrl",
+        "label": "轮播图片",
+        "type": "image",
+        "required": true
+      },
+      {
+        "key": "redirectUrl",
+        "label": "点击跳转",
+        "type": "link",
+        "required": false
+      },
+      {
+        "key": "enabled",
+        "label": "启用轮播",
+        "type": "checkbox",
+        "required": false
+      }
+    ],
+    "public": true,
+    "list": "getAllCarousels",
+    "get": "getCarouselById",
+    "add": "addCarousel",
+    "update": "updateCarousel",
+    "delete": "deleteCarousel"
+  },
+  "productCarousels": {
+    "label": "推荐产品",
+    "entity": "ProductsCarousels",
+    "service": "productsCarouselsServiceImpl",
+    "fields": [
+      {
+        "key": "products",
+        "label": "推荐产品",
+        "type": "products",
+        "required": true
+      }
+    ],
+    "public": true,
+    "list": "getAllProductsCarousels",
+    "get": "getProductsCarouselsById",
+    "add": "addProductsCarousels",
+    "update": "updateProductsCarousels",
+    "delete": "deleteProductsCarousels"
+  },
+  "abouts": {
+    "label": "公司展示图片",
+    "entity": "About",
+    "service": "aboutServiceImpl",
+    "fields": [
+      {
+        "key": "description",
+        "label": "图片说明",
+        "type": "textarea",
+        "required": true
+      },
+      {
+        "key": "imageUrl",
+        "label": "公司展示图片",
+        "type": "image",
+        "required": true
+      }
+    ],
+    "public": true,
+    "list": "getAllAbouts",
+    "get": "getAboutById",
+    "add": "addAbout",
+    "update": "updateAbout",
+    "delete": "deleteAbout"
+  },
+  "businesses": {
+    "label": "招商合作",
+    "entity": "Business",
+    "service": "businessServiceImpl",
+    "fields": [
+      {
+        "key": "name",
+        "label": "合作方向",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "description",
+        "label": "合作介绍",
+        "type": "textarea",
+        "required": true
+      },
+      {
+        "key": "contactInfo",
+        "label": "对接说明",
+        "type": "text",
+        "required": false
+      }
+    ],
+    "public": true,
+    "list": "getAllBusinesses",
+    "get": "getBusinessById",
+    "add": "addBusiness",
+    "update": "updateBusiness",
+    "delete": "deleteBusiness"
+  },
+  "basicInformation": {
+    "label": "备案与版权",
+    "entity": "BasicInformation",
+    "service": "basicInformationServiceImpl",
+    "fields": [
+      {
+        "key": "icp",
+        "label": "ICP备案号",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "publicSecurity",
+        "label": "公安备案号",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "copyright",
+        "label": "版权说明",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "beianImage",
+        "label": "备案标志",
+        "type": "image",
+        "required": false
+      },
+      {
+        "key": "enable",
+        "label": "启用展示",
+        "type": "checkbox",
+        "required": false
+      }
+    ],
+    "public": true,
+    "list": "getAllBasicInformation",
+    "get": "getBasicInformationById",
+    "add": "addBasicInformation",
+    "update": "updateBasicInformation",
+    "delete": "deleteBasicInformation"
+  },
+  "users": {
+    "label": "客户管理",
+    "entity": "User",
+    "service": "userServiceImpl",
+    "fields": [
+      {
+        "key": "userName",
+        "label": "客户账号",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "password",
+        "label": "客户密码",
+        "type": "password",
+        "required": false
+      },
+      {
+        "key": "enable",
+        "label": "启用客户",
+        "type": "checkbox",
+        "required": false
+      }
+    ],
+    "public": false,
+    "list": "getAllUsers",
+    "get": "getUserById",
+    "add": "addUser",
+    "update": "updateUser",
+    "delete": "deleteUser"
+  },
+  "orders": {
+    "label": "订单管理",
+    "entity": "Order",
+    "service": "orderServiceImpl",
+    "fields": [
+      {
+        "key": "userId",
+        "label": "关联客户",
+        "type": "number",
+        "required": true
+      },
+      {
+        "key": "totalPrice",
+        "label": "订单金额",
+        "type": "money",
+        "required": true
+      },
+      {
+        "key": "status",
+        "label": "订单状态",
+        "type": "text",
+        "required": true
+      }
+    ],
+    "public": false,
+    "list": "getAllOrders",
+    "get": "getOrderById",
+    "add": "addOrder",
+    "update": "updateOrder",
+    "delete": "deleteOrder"
+  },
+  "admins": {
+    "label": "管理员账号",
+    "entity": "Admin",
+    "service": "adminServiceImpl",
+    "fields": [
+      {
+        "key": "userName",
+        "label": "管理员账号",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "password",
+        "label": "管理员密码",
+        "type": "password",
+        "required": false
+      },
+      {
+        "key": "remarks",
+        "label": "账号备注",
+        "type": "textarea",
+        "required": false
+      },
+      {
+        "key": "enable",
+        "label": "启用管理员",
+        "type": "checkbox",
+        "required": false
+      }
+    ],
+    "public": false,
+    "list": "getAllAdmins",
+    "get": "getAdminById",
+    "add": "addAdmin",
+    "update": "updateAdmin",
+    "delete": "deleteAdmin"
+  },
+  "locations": {
+    "label": "客户地址",
+    "entity": "LbsInfo",
+    "service": "lbsServiceImpl",
+    "public": false,
+    "list": "getAllLocations",
+    "get": "getLocationById",
+    "add": "addLocation",
+    "update": "updateLocation",
+    "delete": "deleteLocation",
+    "fields": [
+      {
+        "key": "userId",
+        "label": "关联客户",
+        "type": "number",
+        "required": true
+      },
+      {
+        "key": "latitude",
+        "label": "纬度",
+        "type": "latitude",
+        "required": true
+      },
+      {
+        "key": "longitude",
+        "label": "经度",
+        "type": "longitude",
+        "required": true
+      },
+      {
+        "key": "address",
+        "label": "地址说明",
+        "type": "textarea",
+        "required": true
+      }
+    ]
+  }
+}

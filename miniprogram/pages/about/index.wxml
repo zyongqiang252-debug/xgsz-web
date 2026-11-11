@@ -1,0 +1,145 @@
+<view class="page-shell">
+  <view wx:if="{{loading}}" class="loading-state">
+    <view class="loading-dot"></view>
+    <view class="loading-dot"></view>
+    <view class="loading-dot"></view>
+    <text class="loading-text">正在加载关于我们…</text>
+  </view>
+
+  <view wx:elif="{{error}}" class="error-state">
+    <text class="error-title">暂时无法加载关于我们</text>
+    <text class="error-desc">{{error}}</text>
+    <button class="btn btn-primary" bindtap="retry">重新加载</button>
+  </view>
+
+  <block wx:else>
+    <view class="subhero">
+      <view class="subhero-orbit"></view>
+      <view class="subhero-orbit-small"></view>
+      <view class="container subhero-inner">
+        <text class="crumb">首页 / {{content.pages.global.aboutNav}}</text>
+        <text class="subhero-title">{{page.heroTitle}}</text>
+        <text class="subhero-desc">{{page.heroDesc}}</text>
+      </view>
+    </view>
+
+    <view class="section surface" wx:if="{{featured}}">
+      <view class="container">
+        <view class="section-head">
+          <text class="eyebrow"><view class="eyebrow-dot"></view>交付与服务</text>
+          <text class="section-title">{{page.milestonesTitle}}</text>
+          <text class="section-desc">{{page.milestonesDesc}}</text>
+        </view>
+        <view class="milestone-feature">
+          <image wx:if="{{page.introImage}}" class="milestone-image" src="{{page.introImage}}" mode="aspectFill" />
+          <view class="milestone-feature-body">
+            <view class="milestone-meta">
+              <text class="milestone-tag">{{featured.tag || '项目动态'}}</text>
+              <text class="milestone-date">{{featured.displayDate}}</text>
+            </view>
+            <text class="milestone-title">{{featured.title}}</text>
+            <text class="milestone-desc">{{featured.desc}}</text>
+          </view>
+        </view>
+        <view class="milestone-list" wx:if="{{recent.length}}">
+          <view class="milestone-row" wx:for="{{recent}}" wx:key="title">
+            <view class="milestone-row-meta">
+              <text class="milestone-date">{{item.displayDate}}</text>
+              <text class="milestone-tag light">{{item.tag || '项目动态'}}</text>
+            </view>
+            <text class="milestone-row-title">{{item.title}}</text>
+            <text class="milestone-row-desc">{{item.desc}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="section soft">
+      <view class="container">
+        <text class="eyebrow"><view class="eyebrow-dot"></view>我们是谁</text>
+        <text class="about-title preline">{{page.introTitle}}</text>
+        <text class="about-sign preline">{{page.visualTitle}}</text>
+        <text class="about-lead">{{page.introLead}}</text>
+        <view class="about-body">
+          <text class="about-paragraph" wx:for="{{page.introParagraphs}}" wx:key="*this">{{item}}</text>
+        </view>
+        <view class="text-link" bindtap="openInquiry" data-intent="业务咨询">与我们建立联系 <text class="text-link-arrow">→</text></view>
+      </view>
+    </view>
+
+    <view class="section surface" wx:if="{{capabilities.length}}">
+      <view class="container">
+        <view class="section-head">
+          <text class="eyebrow"><view class="eyebrow-dot"></view>核心业务</text>
+          <text class="section-title">从算力建设，到持续运行</text>
+          <text class="section-desc">围绕企业 IT 基础设施与智能算力需求，提供相互衔接的产品与技术服务。</text>
+        </view>
+        <view class="business-grid">
+          <view class="business-card" wx:for="{{capabilities}}" wx:key="title" data-link="{{item.link}}" bindtap="openBusiness">
+            <text class="business-index">0{{index + 1}}</text>
+            <text class="business-name">{{item.title}}</text>
+            <text class="business-desc">{{item.desc}}</text>
+            <text class="business-more">了解业务 →</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="section soft" wx:if="{{supportAreas.length}}">
+      <view class="container">
+        <text class="eyebrow"><view class="eyebrow-dot"></view>服务方式</text>
+        <text class="section-title preline">{{page.supportTitle}}</text>
+        <text class="section-desc">{{page.supportDesc}}</text>
+        <view class="support-list">
+          <view class="support-row" wx:for="{{supportAreas}}" wx:key="title">
+            <text class="support-index">0{{index + 1}}</text>
+            <view class="support-copy">
+              <text class="support-label">{{item.label}}</text>
+              <text class="support-title">{{item.title}}</text>
+              <text class="support-desc">{{item.desc}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="principles" wx:if="{{principles.length}}">
+      <view class="container">
+        <text class="principles-kicker">我们的工作方式</text>
+        <text class="principles-title">{{page.principlesTitle}}</text>
+        <text class="principles-desc">{{page.principlesDesc}}</text>
+        <view class="principle-grid">
+          <view class="principle-card" wx:for="{{principles}}" wx:key="title">
+            <text class="principle-title">{{item.title}}</text>
+            <text class="principle-desc">{{item.desc}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="section surface" wx:if="{{images.length}}">
+      <view class="container">
+        <image
+          wx:for="{{images}}"
+          wx:key="id"
+          class="about-image"
+          src="{{item.imageUrl}}"
+          mode="widthFix"
+        />
+        <text class="tiny">{{page.visualNote}}</text>
+      </view>
+    </view>
+
+    <view class="cta">
+      <text class="cta-title">{{content.pages.global.ctaTitle}}</text>
+      <text class="cta-desc">{{content.pages.global.ctaDesc}}</text>
+      <view class="cta-actions">
+        <button class="btn btn-primary" bindtap="openInquiry" data-intent="业务咨询">{{content.pages.global.ctaButton}} →</button>
+        <button class="btn btn-ghost" bindtap="openPartners">招商合作 →</button>
+      </view>
+    </view>
+
+    <site-footer content="{{content}}" />
+    <consult-fab intent="业务咨询" />
+  </block>
+</view>

@@ -1,0 +1,170 @@
+<view class="page-shell">
+  <view wx:if="{{loading}}" class="loading-state">
+    <view class="loading-dot"></view>
+    <view class="loading-dot"></view>
+    <view class="loading-dot"></view>
+    <text class="loading-text">正在加载产品与方案…</text>
+  </view>
+
+  <view wx:elif="{{error}}" class="error-state">
+    <text class="error-title">暂时无法加载产品</text>
+    <text class="error-desc">{{error}}</text>
+    <button class="btn btn-primary" bindtap="retry">重新加载</button>
+  </view>
+
+  <block wx:else>
+    <view class="subhero">
+      <view class="subhero-orbit"></view>
+      <view class="subhero-orbit-small"></view>
+      <view class="container subhero-inner">
+        <text class="crumb">首页 / {{page.solutionsTitle || '产品与解决方案'}}</text>
+        <text class="subhero-title">{{page.heroTitle}}</text>
+        <text class="subhero-desc">{{page.heroDesc}}</text>
+      </view>
+    </view>
+
+    <view class="section surface">
+      <view class="container">
+        <view class="section-head">
+          <text class="section-title">{{page.solutionsTitle}}</text>
+          <text class="section-desc">{{page.solutionsDesc}}</text>
+        </view>
+        <scroll-view class="scroll-tabs" scroll-x enhanced show-scrollbar="{{false}}">
+          <view class="tab-row">
+            <view
+              wx:for="{{solutions}}"
+              wx:key="key"
+              class="tab-chip {{activeSolution === item.key ? 'active' : ''}}"
+              data-key="{{item.key}}"
+              bindtap="selectSolution"
+            >{{item.title}}</view>
+          </view>
+        </scroll-view>
+
+        <view wx:if="{{solution}}" class="offering-head">
+          <text class="offering-title">{{solution.title}}</text>
+          <text class="offering-desc">{{solution.desc}}</text>
+        </view>
+
+        <block wx:if="{{activeSolution === 'servers'}}">
+          <scroll-view class="scroll-tabs" scroll-x enhanced show-scrollbar="{{false}}">
+            <view class="tab-row">
+              <view
+                wx:for="{{categories}}"
+                wx:key="key"
+                class="tab-chip {{activeCategory === item.key ? 'active' : ''}}"
+                data-key="{{item.key}}"
+                bindtap="selectCategory"
+              >{{item.name}}</view>
+            </view>
+          </scroll-view>
+
+          <view class="product-grid">
+            <view class="product-card" wx:for="{{serverProducts}}" wx:key="id" data-id="{{item.id}}" bindtap="openProduct">
+              <view class="product-cover">
+                <image wx:if="{{item.coverImage}}" class="product-cover-image" src="{{item.coverImage}}" mode="aspectFill" />
+                <view wx:else class="product-art">
+                  <view class="product-art-unit"></view>
+                  <view class="product-art-unit product-art-unit-short"></view>
+                  <view class="product-art-unit"></view>
+                  <view class="product-art-light"></view>
+                </view>
+              </view>
+              <view class="product-body">
+                <text class="product-tag">{{item.tag}}</text>
+                <text class="product-name">{{item.name}}</text>
+                <text class="product-desc">{{item.desc}}</text>
+                <view class="feature-list">
+                  <view class="feature-row" wx:for="{{item.features}}" wx:for-item="feature" wx:key="*this">
+                    <text class="feature-check">✓</text><text>{{feature}}</text>
+                  </view>
+                </view>
+                <view class="product-bottom">
+                  <text class="product-brand">{{item.brand || '按需沟通配置'}}</text>
+                  <text class="product-link">了解配置 →</text>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="empty-state" wx:if="{{!serverProducts.length}}">
+            <text class="empty-title">该分类的方案正在整理</text>
+            <text class="empty-desc">可以直接联系我们沟通配置与交付方式。</text>
+            <button class="btn btn-primary" bindtap="openInquiry" data-intent="服务器配置咨询">咨询配置</button>
+          </view>
+        </block>
+
+        <view class="group-list" wx:if="{{groups.length}}">
+          <view class="group-card" wx:for="{{groups}}" wx:key="title">
+            <text class="group-title">{{item.title}}</text>
+            <view class="model-row">
+              <view
+                class="model-chip"
+                wx:for="{{item.items}}"
+                wx:for-item="model"
+                wx:key="*this"
+                data-intent="{{model}}"
+                bindtap="openInquiry"
+              >{{model}}</view>
+            </view>
+          </view>
+        </view>
+
+        <view class="platform-row" wx:if="{{platforms.length}}">
+          <view class="platform-label">线上平台</view>
+          <view class="platform-link" wx:for="{{platforms}}" wx:key="label" data-url="{{item.url}}" bindtap="copyPlatform">{{item.label}} ↗</view>
+        </view>
+        <text class="tiny" wx:if="{{disclaimer}}">{{disclaimer}}</text>
+      </view>
+    </view>
+
+    <view class="delivery-section">
+      <view class="container">
+        <text class="delivery-title">{{page.deliveryTitle}}</text>
+        <text class="delivery-desc">从需求沟通到持续支持，让方案选择与后续交付保持衔接。</text>
+        <view class="step-grid">
+          <view class="step-item" wx:for="{{steps}}" wx:key="title">
+            <text class="step-index">0{{index + 1}}</text>
+            <text class="step-title">{{item.title}}</text>
+            <text class="step-desc">{{item.desc}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="section soft" wx:if="{{brands.length || certificates.length}}">
+      <view class="container">
+        <view class="section-head" wx:if="{{brands.length}}">
+          <text class="section-title">{{content.pages.global.brandsTitle}}</text>
+        </view>
+        <view class="brand-grid" wx:if="{{brands.length}}">
+          <view class="brand-card" wx:for="{{brands}}" wx:key="id">
+            <image wx:if="{{item.logo}}" class="brand-logo" src="{{item.logo}}" mode="aspectFit" />
+            <text class="brand-name">{{item.name}}</text>
+            <text class="brand-desc">{{item.description}}</text>
+          </view>
+        </view>
+        <view class="section-head" wx:if="{{certificates.length}}">
+          <text class="section-title">{{content.pages.global.certificatesTitle}}</text>
+        </view>
+        <view class="brand-grid" wx:if="{{certificates.length}}">
+          <view class="brand-card" wx:for="{{certificates}}" wx:key="id">
+            <image wx:if="{{item.imageUrl}}" class="brand-logo" src="{{item.imageUrl}}" mode="aspectFit" />
+            <text class="brand-name">{{item.name}}</text>
+            <text class="brand-desc">{{item.description}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="cta">
+      <text class="cta-title">{{content.pages.global.ctaTitle}}</text>
+      <text class="cta-desc">{{content.pages.global.ctaDesc}}</text>
+      <view class="cta-actions">
+        <button class="btn btn-primary" bindtap="openInquiry" data-intent="产品选型咨询">{{content.pages.global.ctaButton}} →</button>
+      </view>
+    </view>
+
+    <site-footer content="{{content}}" />
+    <consult-fab intent="产品选型咨询" />
+  </block>
+</view>

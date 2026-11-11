@@ -72,7 +72,6 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int updateUser(User user) {
-        log.info("Updating user: {}", user);  // 添加日志
         int updates = userMapper.updateUser(user);
         // 返回的执行结果  1成功 0
         return updates;

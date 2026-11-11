@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">GPU 服务器整机方案示意</title>
+  <desc id="desc">两台深色高性能 GPU 服务器，强调加速计算、散热和集群扩展能力。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f2f8f7"/>
+      <stop offset=".58" stop-color="#e3efef"/>
+      <stop offset="1" stop-color="#d5e7e7"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#526872"/>
+      <stop offset=".16" stop-color="#263d46"/>
+      <stop offset=".6" stop-color="#10252c"/>
+      <stop offset="1" stop-color="#324c54"/>
+    </linearGradient>
+    <linearGradient id="top" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9fb3b8"/>
+      <stop offset="1" stop-color="#59717a"/>
+    </linearGradient>
+    <linearGradient id="side" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#20363f"/>
+      <stop offset="1" stop-color="#0d1c22"/>
+    </linearGradient>
+    <pattern id="grid" width="46" height="46" patternUnits="userSpaceOnUse">
+      <path d="M46 0H0v46" fill="none" stroke="#6a9d9e" stroke-opacity=".16" stroke-width="1"/>
+    </pattern>
+    <pattern id="fins" width="8" height="18" patternUnits="userSpaceOnUse">
+      <rect width="8" height="18" fill="#071a20"/>
+      <rect x="2" width="3" height="18" fill="#1f7f7d"/>
+    </pattern>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="190%">
+      <feGaussianBlur stdDeviation="22"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="720" fill="url(#bg)"/>
+  <rect width="1200" height="720" fill="url(#grid)"/>
+  <path d="M0 600 1200 430M0 665 1200 495" stroke="#6fa8a6" stroke-opacity=".18"/>
+  <g fill="none" stroke="#007f79" stroke-opacity=".12">
+    <circle cx="975" cy="160" r="180"/>
+    <circle cx="975" cy="160" r="128"/>
+    <path d="M795 160h360M975-20v360"/>
+  </g>
+  <ellipse cx="594" cy="625" rx="435" ry="57" fill="#17333a" opacity=".3" filter="url(#shadow)"/>
+  <g transform="translate(150 150)">
+    <g id="gpu-unit">
+      <polygon points="74,62 775,62 894,12 193,12" fill="url(#top)" stroke="#b1c4c7" stroke-width="2"/>
+      <polygon points="775,62 894,12 894,132 775,182" fill="url(#side)" stroke="#4c6a71" stroke-width="2"/>
+      <rect x="74" y="62" width="701" height="120" rx="5" fill="url(#metal)" stroke="#8ea5a9" stroke-width="2"/>
+      <rect x="96" y="83" width="284" height="78" rx="3" fill="url(#fins)" stroke="#5e7a7f"/>
+      <rect x="398" y="83" width="300" height="78" rx="3" fill="#0c2026" stroke="#5b747a"/>
+      <g fill="#213d44" stroke="#5f7f83">
+        <rect x="412" y="94" width="58" height="55" rx="2"/>
+        <rect x="478" y="94" width="58" height="55" rx="2"/>
+        <rect x="544" y="94" width="58" height="55" rx="2"/>
+        <rect x="610" y="94" width="74" height="55" rx="2"/>
+      </g>
+      <g fill="#2fb6a9">
+        <circle cx="713" cy="101" r="6"/>
+        <circle cx="713" cy="121" r="6" fill="#80e1d6"/>
+        <circle cx="713" cy="141" r="6"/>
+      </g>
+      <path d="M104 74h652" stroke="#d2e0e1" stroke-opacity=".5" stroke-width="3"/>
+    </g>
+    <use href="#gpu-unit" y="175"/>
+  </g>
+  <g transform="translate(880 470) rotate(-7)" opacity=".94">
+    <rect x="0" y="0" width="178" height="112" rx="8" fill="#16363d" stroke="#6f9a9c" stroke-width="2"/>
+    <rect x="18" y="18" width="92" height="76" rx="4" fill="#0a2228" stroke="#4f8786"/>
+    <path d="M38 40h52v32H38zM47 32V20m12 12V20m12 12V20m12 12V20M47 80v12m12-12v12m12-12v12m12-12v12" fill="none" stroke="#4dc5b7" stroke-width="4"/>
+    <circle cx="142" cy="36" r="7" fill="#71dfd2"/>
+    <path d="M126 60h32M126 76h25" stroke="#6d9597" stroke-width="5" stroke-linecap="round"/>
+  </g>
+</svg>

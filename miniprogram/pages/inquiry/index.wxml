@@ -1,0 +1,80 @@
+<view class="page-shell">
+  <view wx:if="{{loading}}" class="loading-state">
+    <view class="loading-dot"></view>
+    <view class="loading-dot"></view>
+    <view class="loading-dot"></view>
+    <text class="loading-text">正在准备咨询表单…</text>
+  </view>
+
+  <view wx:elif="{{error}}" class="error-state">
+    <text class="error-title">暂时无法加载咨询表单</text>
+    <text class="error-desc">{{error}}</text>
+    <button class="btn btn-primary" bindtap="retry">重新加载</button>
+  </view>
+
+  <block wx:elif="{{submitted}}">
+    <view class="success-wrap">
+      <view class="success-icon">✓</view>
+      <text class="success-title">需求已提交</text>
+      <text class="success-desc">已收到您的需求，我们会根据您留下的联系方式尽快与您沟通。</text>
+      <button class="btn btn-outline btn-block success-home" bindtap="goHome">返回首页</button>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="subhero inquiry-hero">
+      <view class="subhero-orbit"></view>
+      <view class="subhero-orbit-small"></view>
+      <view class="container subhero-inner">
+        <text class="crumb">首页 / 业务咨询</text>
+        <text class="subhero-title">聊聊您的需求</text>
+        <text class="subhero-desc">留下联系方式和业务场景，我们会结合设备、模型与交付计划进一步沟通。</text>
+      </view>
+    </view>
+
+    <view class="section surface">
+      <view class="container">
+        <view class="inquiry-contact" wx:if="{{settings.phone}}">
+          <view>
+            <text class="inquiry-contact-label">也可以直接来电</text>
+            <text class="inquiry-contact-phone">{{settings.phone}}</text>
+          </view>
+          <button class="btn btn-outline btn-small" bindtap="callPhone">拨打电话</button>
+        </view>
+
+        <view class="form-card">
+          <view class="field">
+            <text class="field-label">您的称呼 <text class="field-required">*</text></text>
+            <input class="field-input" data-field="name" value="{{form.name}}" maxlength="40" placeholder="怎么称呼您" bindinput="bindInput" />
+          </view>
+          <view class="field">
+            <text class="field-label">联系电话 <text class="field-required">*</text></text>
+            <input class="field-input" data-field="phone" value="{{form.phone}}" maxlength="24" placeholder="方便后续联系的号码" bindinput="bindInput" />
+          </view>
+          <view class="field">
+            <text class="field-label">公司 / 团队 <text class="field-required">*</text></text>
+            <input class="field-input" data-field="company" value="{{form.company}}" maxlength="100" placeholder="您的公司或团队" bindinput="bindInput" />
+          </view>
+          <view class="field">
+            <text class="field-label">咨询方向</text>
+            <picker class="field-picker" range="{{intents}}" value="{{intentIndex}}" bindchange="changeIntent">
+              <view>{{intents[intentIndex] || '业务咨询'}} <text class="picker-arrow">⌄</text></view>
+            </picker>
+          </view>
+          <view class="field">
+            <text class="field-label">需求描述 <text class="field-required">*</text></text>
+            <textarea class="field-textarea" data-field="message" value="{{form.message}}" maxlength="2000" placeholder="例如：应用场景、算力规模、部署计划或合作方向" bindinput="bindInput" />
+          </view>
+
+          <view class="consent-row" bindtap="toggleConsent">
+            <view class="consent-box {{consent ? 'checked' : ''}}">{{consent ? '✓' : ''}}</view>
+            <text>我同意将填写的信息用于本次业务联系</text>
+          </view>
+          <text class="field-error" wx:if="{{formError}}">{{formError}}</text>
+          <button class="btn btn-primary btn-block submit-button" loading="{{submitting}}" disabled="{{submitting}}" bindtap="submit">{{submitting ? '正在提交…' : '提交需求 →'}}</button>
+          <text class="tiny form-note">提交后会保存到芯光智数业务后台，仅用于本次业务沟通。</text>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

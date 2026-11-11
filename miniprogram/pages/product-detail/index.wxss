@@ -1,0 +1,134 @@
+.detail-page {
+  padding-bottom: 170rpx;
+}
+
+.detail-cover {
+  position: relative;
+  height: 430rpx;
+  overflow: hidden;
+  background: linear-gradient(135deg, #dfecee, #b9cfd2);
+}
+
+.detail-cover-image {
+  width: 100%;
+  height: 100%;
+}
+
+.detail-art {
+  top: 50%;
+  width: 420rpx;
+  transform: translate(-50%, -50%) rotate(-4deg);
+}
+
+.detail-cover-mask {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 70%;
+  background: linear-gradient(180deg, rgba(6, 21, 31, 0), rgba(6, 21, 31, 0.88));
+}
+
+.detail-cover-copy {
+  position: absolute;
+  left: 32rpx;
+  right: 32rpx;
+  bottom: 30rpx;
+}
+
+.detail-tag {
+  display: block;
+  color: #8fd8d2;
+  font-size: 20rpx;
+  letter-spacing: 1rpx;
+}
+
+.detail-name {
+  display: block;
+  margin-top: 8rpx;
+  color: #ffffff;
+  font-size: 44rpx;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.detail-en {
+  display: block;
+  margin-top: 6rpx;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 17rpx;
+  letter-spacing: 2rpx;
+}
+
+.detail-desc {
+  display: block;
+  color: #435f69;
+  font-size: 27rpx;
+  line-height: 1.95;
+}
+
+.detail-features {
+  margin-top: 24rpx;
+  padding: 20rpx 22rpx;
+  border-radius: 8rpx;
+  background: #f5faf9;
+}
+
+.detail-note {
+  display: flex;
+  margin-top: 18rpx;
+  padding-top: 18rpx;
+  border-top: 1rpx solid #e8eff0;
+}
+
+.detail-note-label {
+  flex-shrink: 0;
+  width: 150rpx;
+  color: #91a2a8;
+  font-size: 21rpx;
+}
+
+.detail-note-value {
+  flex: 1;
+  color: #4d6973;
+  font-size: 23rpx;
+  line-height: 1.7;
+}
+
+.detail-image {
+  width: 100%;
+  margin-top: 18rpx;
+  border-radius: 8rpx;
+}
+
+.detail-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18rpx 28rpx calc(18rpx + env(safe-area-inset-bottom));
+  border-top: 1rpx solid #e0e9eb;
+  background: #ffffff;
+}
+
+.detail-bar-copy {
+  min-width: 0;
+}
+
+.detail-bar-label {
+  display: block;
+  color: #91a2a8;
+  font-size: 19rpx;
+}
+
+.detail-bar-value {
+  display: block;
+  margin-top: 4rpx;
+  color: #294752;
+  font-size: 24rpx;
+  font-weight: 600;
+}

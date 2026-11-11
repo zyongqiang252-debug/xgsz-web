@@ -1,0 +1,47 @@
+.contact-kicker{font-size:14px;font-weight:600;color:#007f79;display:block;margin-bottom:18px}
+.contact-page-layout{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:64px;align-items:start}
+.contact-page-layout h2{font-size:34px;line-height:1.6;margin-bottom:22px}
+.contact-page-layout>div>p{color:#536873;font-size:16px;line-height:1.9;margin-bottom:16px}
+.contact-page-layout>div>.button{margin-top:16px}
+.contact-surface{background:#f3f7f8;border:1px solid #dce5e9;border-radius:4px;padding:34px}
+.company-contacts{display:grid;grid-template-columns:minmax(0,1fr);gap:28px;overflow-wrap:anywhere}
+.contact-method-label{display:block;font-size:14px;font-weight:600;color:#536873;margin-bottom:12px}
+.contact-phone-value{font-size:28px;font-weight:650;line-height:1.5;color:#006d69}
+.contact-phone-value a{display:inline-flex;align-items:center;min-height:44px}
+.contact-method small{display:block;font-size:13px;color:#536873;line-height:1.8;margin-top:8px}
+.contact-unavailable{font-size:16px;color:#536873;line-height:1.8}
+.contact-wecom{display:flex;align-items:start;gap:24px;border-top:1px solid #dce5e9;padding-top:28px;justify-content:space-between}
+.contact-wecom>div{min-width:0;flex:1}
+.wecom-name{font-size:18px;font-weight:600;color:#203945;line-height:1.7}
+.contact-wecom-link{display:inline-flex;align-items:center;gap:8px;min-height:44px;color:#006d69;font-size:15px;font-weight:600;margin-top:8px}
+.wecom-qr{width:132px;height:132px;object-fit:contain;padding:8px;background:white;border:1px solid #dce5e9;border-radius:3px;flex-shrink:0}
+.contact-extras{display:grid;gap:20px;border-top:1px solid #dce5e9;padding-top:24px}
+.contact-extra>span{display:block;font-size:13px;color:#536873;margin-bottom:6px}
+.contact-extra>a,.contact-extra>p{font-size:15px;line-height:1.8;color:#203945}
+.contact-extra>a{display:inline-flex;align-items:center;min-height:44px}
+.direct-contact-panel{margin:20px 0 25px;padding:22px;background:#f3f7f8;border:1px solid #dce5e9;border-radius:4px}
+.contacts-compact{grid-template-columns:minmax(0,1fr);gap:22px;align-items:start}
+.contacts-compact.has-qr{grid-template-columns:minmax(0,1fr) minmax(130px,155px)}
+.compact-contact-details{min-width:0}
+.compact-wecom-info{margin-top:22px}
+.compact-qr-side{min-width:0;border-left:1px solid #dce5e9;padding-left:22px}
+.compact-qr-side .contact-method-label{line-height:1.6}
+.compact-qr-side .contact-method-label>span{display:inline-block;white-space:nowrap}
+.contacts-compact .contact-phone-value{font-size:21px}
+.contacts-compact .wecom-qr{width:min(100%,112px);height:auto;aspect-ratio:1;padding:6px}
+.inquiry-modal .modal-inner>h2{margin-bottom:0}
+.inquiry-modal .modal-lead{margin-top:15px}
+.footer-contact{display:block;padding-top:26px;padding-bottom:30px;border-top:1px solid #23404c}
+.footer-contact-heading{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:22px}
+.footer-contact-heading h2{font-size:20px;font-weight:550;color:#e1edf1}
+.footer-contact-heading>a{font-size:14px;color:#9bd8d2;min-height:44px;display:inline-flex;align-items:center}
+.footer-contact .contact-method-label,.footer-contact .contact-extra>span{color:#a7c0ca}
+.footer-contact .contact-phone-value,.footer-contact .wecom-name,.footer-contact .contact-wecom-link{color:#d5f1ed}
+.footer-contact .contact-unavailable,.footer-contact .contact-method small,.footer-contact .contact-extra>a,.footer-contact .contact-extra>p{color:#b4c8d1}
+.footer-contact .company-contacts{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) minmax(0,1fr);gap:32px}
+.footer-contact .contact-wecom{padding:0 0 0 28px;border-top:0;border-left:1px solid #23404c}
+.footer-contact .contact-extras{border:0;padding:0;gap:12px}
+.footer-contact .contact-phone-value{font-size:24px}
+@media(min-width:761px) and (max-width:1100px){.main-nav{gap:15px}.main-nav a{font-size:13px}.header-inner{padding:0 20px;gap:18px}.brand-words b{font-size:20px}.header-actions{gap:8px}.contact-page-layout{gap:32px}.contact-page-layout h2{font-size:29px}.contact-surface{padding:26px}.footer-contact .company-contacts{grid-template-columns:1fr 1.5fr}.footer-contact .contact-extras{grid-column:1/-1;grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.contact-page-layout{grid-template-columns:1fr;gap:32px}.contact-page-layout h2{font-size:28px}.contact-surface{padding:24px}.contact-phone-value{font-size:25px}.contact-wecom{gap:15px}.wecom-qr{width:112px;height:112px}.direct-contact-panel{padding:20px}.contacts-compact{gap:16px}.contacts-compact.has-qr{grid-template-columns:minmax(0,1fr) minmax(100px,125px)}.compact-qr-side{padding-left:15px}.footer-contact .company-contacts{grid-template-columns:1fr;gap:24px}.footer-contact .contact-wecom{padding:24px 0 0;border:0;border-top:1px solid #23404c}.footer-contact-heading{align-items:start}.footer-contact .contact-extras{padding-top:22px;border-top:1px solid #23404c}.footer-contact-heading h2{font-size:21px}}
+@media(max-width:400px){.inquiry-modal .modal-inner{padding:24px 12px}.direct-contact-panel{padding:14px}.contacts-compact.has-qr{grid-template-columns:minmax(0,1fr) minmax(94px,.8fr);gap:10px}.compact-qr-side{padding-left:10px}.compact-qr-side .contact-method-label{font-size:13px}.contacts-compact .contact-phone-value{font-size:16px}.contacts-compact .contact-wecom-link{font-size:14px}}

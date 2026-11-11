@@ -1,39 +1,51 @@
-# 使用CentOS作为基础镜像
-FROM centos:7
+# syntax=docker/dockerfile:1
 
-# 更换为阿里云的yum源
-RUN sed -i 's|^mirrorlist=|#mirrorlist=|g' /etc/yum.repos.d/CentOS-Base.repo && \
-    sed -i 's|^#baseurl=http://mirror.centos.org|baseurl=https://mirrors.aliyun.com|g' /etc/yum.repos.d/CentOS-Base.repo
+# 1. 构建官网与管理后台静态资源
+FROM node:22-alpine AS web
+WORKDIR /build/frontend
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci --no-audit --no-fund
+COPY frontend/ ./
+RUN npm run build
 
-# 安装必要的工具和软件，包括curl
-RUN yum update -y && \
-    yum install -y java-1.8.0-openjdk-devel mysql-server nginx curl && \
-    yum clean all
+# 2. 构建 Spring Boot 应用（前端产物打进 JAR）
+FROM maven:3.9-eclipse-temurin-17 AS api
+WORKDIR /build
+COPY website/pom.xml website/pom.xml
+COPY src/ src/
+COPY website/src/ website/src/
+COPY --from=web /build/frontend/dist frontend/dist
+RUN mvn -q -f website/pom.xml package -DskipTests
 
-# 安装 Maven 3.8.6
-RUN curl -L -o /tmp/apache-maven-3.8.6-bin.tar.gz https://downloads.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz && \
-    tar -xzf /tmp/apache-maven-3.8.6-bin.tar.gz -C /opt/ && \
-    ln -s /opt/apache-maven-3.8.6/bin/mvn /usr/bin/mvn
+# 3. 运行镜像：内置 MySQL 8 + JRE，一条命令启动整套官网
+FROM eclipse-temurin:17-jre-jammy
 
-# 设置工作目录
-WORKDIR /app
+ENV DEBIAN_FRONTEND=noninteractive \
+    TZ=Asia/Shanghai \
+    LANG=C.UTF-8 \
+    XGSZ_BIND=0.0.0.0 \
+    XGSZ_PORT=8080
 
-# 将项目文件复制到容器中
-COPY . .
+# 防止 apt 安装时尝试用 init 启动 MySQL
+RUN printf '#!/bin/sh\nexit 101\n' > /usr/sbin/policy-rc.d \
+    && chmod +x /usr/sbin/policy-rc.d \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends mysql-server ca-certificates curl tzdata \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -f /usr/sbin/policy-rc.d \
+    && mkdir -p /var/run/mysqld /var/log/mysql \
+    && chown -R mysql:mysql /var/run/mysqld /var/log/mysql
 
-# 复制Nginx配置文件
-COPY nginx.conf /etc/nginx/nginx.conf
+WORKDIR /opt/xgsz
+COPY --from=api /build/website/target/xgsz-website-1.0.0.jar /opt/xgsz/app.jar
+COPY init.sql /opt/xgsz/init.sql
+COPY docker/entrypoint.sh /opt/xgsz/entrypoint.sh
+RUN chmod +x /opt/xgsz/entrypoint.sh
 
-# 添加 Maven 配置文件
-COPY settings.xml /root/.m2/settings.xml
-
-# 编译项目
-RUN mvn clean package
-
-# 暴露服务端口
+VOLUME ["/var/lib/mysql"]
 EXPOSE 8080
 
-# 启动MySQL和Nginx
-CMD service mysqld start && \
-    service nginx start && \
-    java -jar target/your-app.jar
+HEALTHCHECK --interval=30s --timeout=5s --start-period=120s --retries=3 \
+    CMD curl -fsS http://127.0.0.1:8080/api/health || exit 1
+
+ENTRYPOINT ["/opt/xgsz/entrypoint.sh"]

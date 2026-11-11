@@ -9,7 +9,7 @@
     <select id="findProductsCarouselsById" parameterType="int" resultType="com.cows.entity.ProductsCarousels">
         SELECT id, products, createTime, updateTime, isDeleted FROM ProductsCarousels WHERE id = #{id} AND isDeleted = 0
     </select>
-    <insert id="insertProductsCarousels" parameterType="com.cows.entity.ProductsCarousels">
+    <insert id="insertProductsCarousels" parameterType="com.cows.entity.ProductsCarousels" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO ProductsCarousels (products, isDeleted)
         VALUES (#{products, typeHandler=com.cows.handler.IntArrayTypeHandler}, 0)
     </insert>
